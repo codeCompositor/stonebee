@@ -2,10 +2,7 @@ package core
 
 import core.card.creature.Creature
 import core.card.creature.Minion
-import core.cardbase.minions.AbusiveSergeant
-import core.cardbase.minions.ChillwindYeti
-import core.cardbase.minions.ElvenArcher
-import core.cardbase.minions.MurlocTidecaller
+import core.cardbase.minions.*
 import core.phase.TargetableBattlecryPhase
 
 class SummonMinionTests extends GroovyTestCase {
@@ -48,8 +45,8 @@ class SummonMinionTests extends GroovyTestCase {
         assertEquals("Verify Tidecaller has 2 attack", 2, tidecaller['attack']);
     }
 
-    void testBattlecry() {
-        game.targetChooser = {n, game -> game.currentTarget = 2};
+    void testElvenArcher() {
+        game.targetChooser = { n, game -> game.currentTarget = 2 };
         def archer = new Link<Minion>(new ElvenArcher(), game);
         def yetiLink = new Link<Minion>(new ChillwindYeti(), game);
         player.play.add(yetiLink, game);
@@ -60,13 +57,32 @@ class SummonMinionTests extends GroovyTestCase {
         assertEquals("Verify Yeti has 4 health", 4, yetiLink.getFrom(game)['health']);
     }
 
+    void testShatteredSunCleric() {
+        game.targetChooser = { n, game -> game.currentTarget = 0 }
+        def cleric = new Link<Minion>(new ShatteredSunCleric(), game)
+        def yetiLink = new Link<Minion>(new ChillwindYeti(), game)
+        player.play.add(yetiLink, game)
+        player.hand.add(cleric, game)
+        assertTrue("Verify Sun Cleric can target Yeti", yetiLink in cleric.getFrom(game).battlecry.getValidTargets(game))
+        game.playMinion(cleric)
+        game.run()
+        assertEquals("Verify Yeti has 5 attack", 5, yetiLink.getFrom(game)['attack'])
+        assertEquals("Verify Yeti has 6 health", 6, yetiLink.getFrom(game)['health'])
+        yetiLink.getFrom(game).with {
+            buffs.clear()
+            updateStats()
+        }
+        assertEquals("Verify Yeti has 4 attack", 4, yetiLink.getFrom(game)['attack'])
+        assertEquals("Verify Yeti has 5 health", 5, yetiLink.getFrom(game)['health'])
+    }
+
     void testAbusiveSergeant() {
         def sergeantLink = new Link<Minion>(new AbusiveSergeant(), game);
         def yetiLink = new Link<Minion>(new ChillwindYeti(), game);
 
         player.play.add(yetiLink, game);
         player.hand.add(sergeantLink, game);
-        game.targetChooser = {n, game -> game.currentTarget = 0};
+        game.targetChooser = { n, game -> game.currentTarget = 0 };
 
         assertTrue("Verify Sergeant can target Yeti", yetiLink in sergeantLink.getFrom(game).battlecry.getValidTargets(game));
 

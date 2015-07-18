@@ -10,12 +10,16 @@ public class AttackBuff extends Buff {
         this.f = f;
     }
 
-    boolean apply(Entity entity) {
+    AttackBuff(int delta) {
+        this.f = { it + delta };
+    }
+
+    void apply(Entity entity) {
         if (entity instanceof Creature) {
             entity['attack'] = f(entity['attack'])
-            true
+            return
         }
-        false
+        throw new Exception("Attack Buff can be applied only to Creature")
     }
 
     AttackBuff copy() {

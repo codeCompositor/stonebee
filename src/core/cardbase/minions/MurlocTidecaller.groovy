@@ -1,16 +1,16 @@
-package core.cardbase.minions;
+package core.cardbase.minions
 
-import core.Game;
-import core.Link;
-import core.card.creature.Creature;
-import core.card.creature.Minion;
-import core.buff.AttackBuff;
-import core.phase.Phase;
-import core.phase.PhaseTrigger;
-import core.phase.EarlyOnSummonPhase;
+import core.Game
+import core.Link
+import core.buff.AttackBuff
+import core.card.creature.Creature
+import core.card.creature.Minion
+import core.phase.EarlyOnSummonPhase
+import core.phase.Phase
+import core.phase.PhaseTrigger
 
 public class MurlocTidecaller extends Minion {
-    private MTPhaseTrigger trigger;
+    private MTPhaseTrigger trigger
 
     public MurlocTidecaller() {
         super(1, 2, 1, "Murloc Tidecaller");
@@ -29,13 +29,13 @@ public class MurlocTidecaller extends Minion {
 
         @Override
         boolean trigger(Phase phase, Game game) {
-            phase instanceof EarlyOnSummonPhase && phase.minion.getFrom(game).race == Creature.Race.MURLOC;
+            phase instanceof EarlyOnSummonPhase && phase.minion.getFrom(game)['race'] == Creature.Race.MURLOC;
         }
 
         @Override
         public void occur(Game game) {
             super.occur(game);
-            creature.getFrom(game).getBuffs().add(new AttackBuff({x -> x + 1})); //TODO: Add buff here
+            creature.getFrom(game).getBuffs().add(new AttackBuff(1)); //TODO: Add buff here
         }
 
         public Link<Creature> getCreature() {

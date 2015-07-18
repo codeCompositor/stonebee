@@ -3,19 +3,17 @@ package core.buff
 import core.Entity
 
 public class BuffsSum extends Buff {
-    Buff buff1
-    Buff buff2
+    Buff[] buffs
 
-    BuffsSum(Buff buff1, Buff buff2) {
-        this.buff1 = buff1
-        this.buff2 = buff2
+    BuffsSum(Buff... buffs) {
+        this.buffs = buffs
     }
 
-    boolean apply(Entity entity) {
-        buff1.apply(entity) && buff2.apply(entity)
+    void apply(Entity entity) {
+        buffs.each { it.apply(entity) }
     }
 
     BuffsSum copy() {
-        new BuffsSum(buff1, buff2)
+        new BuffsSum(buffs)
     }
 }

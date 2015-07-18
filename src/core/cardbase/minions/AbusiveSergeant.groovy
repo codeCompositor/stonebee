@@ -1,14 +1,14 @@
-package core.cardbase.minions;
+package core.cardbase.minions
 
-import core.Game;
-import core.Link;
-import core.card.creature.Creature;
-import core.card.creature.Minion;
-import core.buff.AttackBuff;
-import core.buff.Buff;
-import core.phase.EndOfTurnPhase;
-import core.phase.Phase;
-import core.phase.PhaseTrigger;
+import core.Game
+import core.Link
+import core.buff.AttackBuff
+import core.buff.Buff
+import core.card.creature.Creature
+import core.card.creature.Minion
+import core.phase.EndOfTurnPhase
+import core.phase.Phase
+import core.phase.PhaseTrigger
 import core.phase.TargetableBattlecryPhase
 
 class AbusiveSergeant extends Minion {
@@ -25,16 +25,13 @@ class AbusiveSergeant extends Minion {
         void occur(Game game) {
             super.occur(game);
 
-            Buff buff = new AttackBuff({x -> x + 2});
+            Buff buff = new AttackBuff(2);
             Link<Buff> link = new Link<>(buff, getTarget().getFrom(game).getBuffs());
             game.triggers.add(new ASTrigger(getTarget(), link));//TODO: See what's up with triggers
         }
 
         List<Link<Creature>> getValidTargets(Game game) {
-            def targets = super.getValidTargets(game);
-            targets.remove(game.player.hero);
-            targets.remove(game.opponent.hero);
-            return targets;
+            super.getValidTargets(game).findAll({ it.getFrom(game) instanceof Minion && it != target })
         }
 
     }

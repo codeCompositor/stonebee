@@ -10,12 +10,16 @@ public class HealthBuff extends Buff {
         this.f = f;
     }
 
-    boolean apply(Entity entity) {
+    HealthBuff(int delta) {
+        this.f = { it + delta };
+    }
+
+    void apply(Entity entity) {
         if (entity instanceof Creature) {
             entity['maxHealth'] = f(entity['maxHealth'])
-            true
+            return
         }
-        false
+        throw new Exception("Health Buff can be applied only to Creature")
     }
 
     HealthBuff copy() {
