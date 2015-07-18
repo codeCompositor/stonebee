@@ -11,7 +11,7 @@ class Spell implements Card {
     Link<Player> player
 
     Spell(int mana, String name) {
-        this['mana'] = mana
+        this['mana'] = this['nativeMana'] = mana
         this['name'] = name
         this['pendingDestroy'] = false
     }

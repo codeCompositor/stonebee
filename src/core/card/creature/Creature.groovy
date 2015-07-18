@@ -40,6 +40,7 @@ trait Creature extends Entity implements Copyable {
         def oldHealth = this['maxHealth']
         this['maxHealth'] = this['nativeHealth']
         this['attack'] = this['nativeAttack']
+        this['mana'] = this['nativeMana']
         buffs.each { it.apply(this) }
         if (this['maxHealth'] > oldHealth)
             this['health'] += this['maxHealth'] - oldHealth

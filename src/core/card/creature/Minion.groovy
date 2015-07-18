@@ -22,8 +22,8 @@ class Minion implements Card, Creature {
     Minion() {}
 
     Minion(int attack, int health, int mana, String name) {
-        this['mana'] = mana
         this['name'] = name
+        this['mana'] = this['nativeMana'] = mana
         this['attack'] = this['nativeAttack'] = attack
         this['health'] = this['maxHealth'] = this['nativeHealth'] = health
         this['pendingDestroy'] = false;

@@ -3,7 +3,7 @@ package core.buff
 import core.Entity
 import core.card.creature.Creature
 
-public class AttackBuff implements Buff {
+public class AttackBuff extends Buff {
     final Closure<Integer> f;
 
     AttackBuff(Closure<Integer> f) {
