@@ -3,12 +3,8 @@ package core.card
 import core.Copyable
 import core.Entity
 
-interface Card extends Entity, Copyable {
-    int getMana();
-
-    void setMana(int mana);
-
-    enum Class {
+trait Card extends Entity implements Copyable {
+    static enum Class {
         NEUTRAL(""), MAGE("core.cardbase.heroes.JainaProudmoore"), WARRIOR("core.cardbase.heroes.GarroshHellscream");
 
         /**

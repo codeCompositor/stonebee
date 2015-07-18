@@ -10,26 +10,15 @@ public class AttackBuff implements Buff {
         this.f = f;
     }
 
-    /**
-     * Apply this buff to x attack
-     * @param x initial attack
-     * @return resulting attack
-     */
-    int apply(int x) {
-        return x;
-    }
-
-    @Override
     boolean apply(Entity entity) {
-        if (!(entity instanceof Creature))
-            return false;
-        Creature creature = entity as Creature;
-        creature.attack = f(creature.attack);
-        return true;
+        if (entity instanceof Creature) {
+            entity['attack'] = f(entity['attack'])
+            true
+        }
+        false
     }
 
-    @Override
     AttackBuff copy() {
-        return new AttackBuff(f);
+        new AttackBuff(f)
     }
 }

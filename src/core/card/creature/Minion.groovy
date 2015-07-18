@@ -8,20 +8,10 @@ import core.phase.BattlecryPhase
 import core.phase.PhaseTrigger
 
 class Minion implements Card, Creature {
-    String name
     Link link
     Link<Player> player
     boolean pendingDestroy
-    int mana
-    int attack
-    int health
-    int nativeAttack
-    int nativeHealth
-    int maxHealth
-    Creature.Race race
-    boolean canBeTargeted
     List<Buff> buffs
-    Map tags
     protected BattlecryPhase battlecry
     private List<Integer> triggers
     /**
@@ -29,24 +19,25 @@ class Minion implements Card, Creature {
      */
     private List<PhaseTrigger> playTriggers
 
-    public Minion() {
-    }
+    Minion() {}
 
-    public Minion(int attack, int health, int mana, String name) {
-        this.mana = mana
-        this.name = name
-        this.attack = nativeAttack = attack
-        this.health = maxHealth = nativeHealth = health
+    Minion(int attack, int health, int mana, String name) {
+        this['mana'] = mana
+        this['name'] = name
+        this['attack'] = this['nativeAttack'] = attack
+        this['health'] = this['maxHealth'] = this['nativeHealth'] = health
+        this['pendingDestroy'] = false;
+        this['canBeTargeted'] = true;
         triggers = new ArrayList<Integer>()
         playTriggers = new ArrayList<PhaseTrigger>()
         buffs = new ArrayList<Buff>()
     }
 
-    public BattlecryPhase getBattlecry() {
+    BattlecryPhase getBattlecry() {
         return battlecry;
     }
 
-    public void setBattlecry(BattlecryPhase battlecry) {
+    void setBattlecry(BattlecryPhase battlecry) {
         if (battlecry != null) battlecry.minion = link;
         this.battlecry = battlecry;
     }
@@ -57,34 +48,24 @@ class Minion implements Card, Creature {
 //        m.battlecry = battlecry.copy()
         //TODO: copy triggers
         def m = new Minion();
-        m.name = name
         m.link = link.copy()
         m.player = player.copy()
-        m.pendingDestroy = pendingDestroy
-        m.mana = mana
-        m.attack = attack
-        m.health = health
-        m.nativeAttack = nativeAttack
-        m.nativeHealth = nativeHealth
-        m.maxHealth = maxHealth
-        m.race = race
-        m.canBeTargeted = canBeTargeted
+        m.tags.putAll(tags)
         m.buffs = buffs*.copy()
         m.battlecry = battlecry == null ? null : battlecry.copy()
         //TODO: copy triggers
         return m
     }
 
-    @Override
-    public String toString() {
-        "Minion{\"$name\",$attack/$health}"
+    String toString() {
+        "Minion{'${this['name']}',${this['attack']}/${this['health']}}"
     }
 
-    public boolean hasBattlecry() {
+    boolean hasBattlecry() {
         return battlecry != null;
     }
 
-    public void setLink(Link link) {
+    void setLink(Link link) {
         this.link = link;
         if (battlecry != null)
             battlecry.setMinion(link);

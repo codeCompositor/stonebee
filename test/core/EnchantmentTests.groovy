@@ -1,13 +1,7 @@
-package core;
+package core
 
-import core.card.Card;
-import core.card.creature.Creature;
-import core.card.creature.Minion;
 import core.cardbase.minions.ChillwindYeti
-import core.cardbase.spells.Equality;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import core.cardbase.spells.Equality
 
 public class EnchantmentTests extends GroovyTestCase {
     private Player player;
@@ -27,11 +21,11 @@ public class EnchantmentTests extends GroovyTestCase {
         player.hand.add(equalityLink, game);
         game.playSpell(equality);
         game.run();
-        assertEquals("Verify Yeti has 1 hp", 1, yeti.getHealth());
-        assertEquals("Verify player's hero has 30 hp", 30, player.getHero(game).getHealth());
+        assertEquals("Verify Yeti has 1 hp", 1, yeti['health']);
+        assertEquals("Verify player's hero has 30 hp", 30, player.getHero(game)['health']);
         //TODO: Add silence
         yeti.getBuffs().clear();
         yeti.updateStats();
-        assertEquals("Verify Yeti has 5 hp", 5, yeti.getHealth());
+        assertEquals("Verify Yeti has 5 hp", 5, yeti['health']);
     }
 }
