@@ -27,7 +27,7 @@ class AbusiveSergeant extends Minion {
 
             Buff buff = new AttackBuff(2);
             Link<Buff> link = new Link<>(buff, getTarget().getFrom(game).getBuffs());
-            game.triggers.add(new ASTrigger(getTarget(), link));//TODO: See what's up with triggers
+            game.triggers.add(new Link(new ASTrigger(getTarget(), link), game));
         }
 
         List<Link<Creature>> getValidTargets(Game game) {
@@ -54,7 +54,7 @@ class AbusiveSergeant extends Minion {
 
             Creature c = target.getFrom(game);
             c.getBuffs().remove(buff.getFrom(c.buffs));
-            game.triggers.remove(this);
+            game.triggers.remove(new Link(this, game));
         }
     }
 }

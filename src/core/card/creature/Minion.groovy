@@ -5,7 +5,6 @@ import core.Player
 import core.buff.Buff
 import core.card.Card
 import core.phase.BattlecryPhase
-import core.phase.PhaseTrigger
 
 class Minion implements Card, Creature {
     Link link
@@ -13,11 +12,9 @@ class Minion implements Card, Creature {
     boolean pendingDestroy
     List<Buff> buffs
     protected BattlecryPhase battlecry
-    private List<Integer> triggers
     /**
      * Triggers which are added to main trigger list whenever minion is played
      */
-    private List<PhaseTrigger> playTriggers
 
     Minion() {}
 
@@ -28,8 +25,6 @@ class Minion implements Card, Creature {
         this['health'] = this['maxHealth'] = this['nativeHealth'] = health
         this['pendingDestroy'] = false;
         this['canBeTargeted'] = true;
-        triggers = new ArrayList<Integer>()
-        playTriggers = new ArrayList<PhaseTrigger>()
         buffs = new ArrayList<Buff>()
     }
 
@@ -68,7 +63,7 @@ class Minion implements Card, Creature {
     void setLink(Link link) {
         this.link = link;
         if (battlecry != null)
-            battlecry.setMinion(link);
+            battlecry.minion = link;
     }
 
 //    @Override

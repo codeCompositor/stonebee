@@ -20,7 +20,7 @@ public class Game implements Copyable<Game> {
     /**
      * Contains indexes of triggers from allTriggers list in order from never to older
      */
-    public IndexesList<PhaseTrigger> triggers
+    public LinkedList<Link<PhaseTrigger>> triggers
     public Closure targetChooser
     public Stack<Phase> phaseStack
     public int currentTarget
@@ -41,7 +41,7 @@ public class Game implements Copyable<Game> {
         allObjects = new ArrayList<>()
         allTriggers = new ArrayList<>()
         allCards = new ArrayList<>()
-        triggers = new IndexesList<>(allObjects)
+        triggers = new LinkedList<>()
         play = new LinkedList<>()
         hand = new LinkedList<>()
         deck = new LinkedList<>()
@@ -53,8 +53,8 @@ public class Game implements Copyable<Game> {
     private void initPlayers(Player player, Player opponent) {
         this.player = player
         this.opponent = opponent
-        player.link = new Link(player, this)
-        opponent.link = new Link(opponent, this)
+        player.setLink(new Link(player, this))
+        opponent.setLink(new Link(opponent, this))
         player.initHero(new JainaProudmoore(), this) //TODO: Add other heroes
         opponent.initHero(new JainaProudmoore(), this)
     }
@@ -166,8 +166,8 @@ public class Game implements Copyable<Game> {
         copy.allObjects = allObjects*.copy()
         copy.setPlayer((Player) copy.allObjects.get(0))
         copy.setOpponent((Player) copy.allObjects.get(1))
-        copy.player.setLink(new Link<>(copy.player, copy))
-        copy.opponent.setLink(new Link<>(copy.opponent, copy))
+        copy.player.setLink(new Link(copy.player, copy))
+        copy.opponent.setLink(new Link(copy.opponent, copy))
         copy.phaseStack = phaseStack*.copy()
         copy.play = play*.copy()
         copy.hand = hand*.copy()

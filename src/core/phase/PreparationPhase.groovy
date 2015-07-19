@@ -1,11 +1,8 @@
-package core.phase;
+package core.phase
 
-import core.Game;
-import core.Link;
-import core.card.creature.Creature;
-
-import java.util.ArrayList;
-import java.util.List;
+import core.Game
+import core.Link
+import core.card.creature.Creature
 
 public class PreparationPhase extends Phase {
     private Link<Creature> attacker;
@@ -26,7 +23,7 @@ public class PreparationPhase extends Phase {
     private boolean checkHighPriorityTriggers(Game game) {
         List<Phase> greedyQueue = new ArrayList<>();
         boolean result = false;
-        for (PhaseTrigger trigger : game.triggers) {
+        for (PhaseTrigger trigger : game.triggers*.getFrom(game)) {
             if (trigger.getPriority() > 0 && trigger.trigger(this, game)) {
                 greedyQueue.add(trigger);
                 result = true;
@@ -41,7 +38,7 @@ public class PreparationPhase extends Phase {
     private boolean checkLowPriorityTriggers(Game game) {
         List<Phase> greedyQueue = new ArrayList<>();
         boolean result = false;
-        for (PhaseTrigger trigger : game.triggers) {
+        for (PhaseTrigger trigger : game.triggers*.getFrom(game)) {
             if (trigger.getPriority() == 0 && trigger.trigger(this, game)) {
                 greedyQueue.add(trigger);
                 result = true;

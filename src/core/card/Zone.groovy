@@ -30,8 +30,16 @@ public class Zone<E extends Copyable> extends LinkedList<Link<E>> implements Pla
 
     boolean add(Link<E> o, Game game) {
         if (add(o)) {
-            if (o.getFrom(game) instanceof PlayerOwnable)
-                o.getFrom(game).setPlayer(player);
+            def e = o.getFrom(game)
+            if (e instanceof Entity) {
+                e.player = player
+                e.(zoneType.toString().toLowerCase() + "Triggers").each {
+                    it.entity = o
+                    Link link = new Link(it, game)
+                    e.triggers.add(link)
+                    game.triggers.add(link)
+                }
+            }
             return Utils.getZone(zoneType, game).add(o);
         }
         return false;
