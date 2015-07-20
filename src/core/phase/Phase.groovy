@@ -25,13 +25,13 @@ class Phase implements Copyable {
         pendingResolution = true
     }
 
-    private void checkTriggers(Game game) {
+    void checkTriggers(Game game) {
         def queue = new PriorityQueue<Phase>()
         game.triggers.each { if (it.getFrom(game).trigger(this, game)) queue.add(it.getFrom(game)) }
         queue.each { game.addPhase(it) }
     }
 
-    public Phase copy() {
+    Phase copy() {
         Phase clone = new Phase(outermost)
         clone.pendingResolution = pendingResolution
         clone

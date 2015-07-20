@@ -6,15 +6,15 @@ import core.card.creature.Creature
 import core.card.creature.Minion
 import core.phase.EarlyOnSummonPhase
 import core.phase.Phase
-import core.phase.PhaseTrigger
+import core.trigger.Trigger
 
 public class MurlocTidecaller extends Minion {
     MurlocTidecaller() {
         super(1, 2, 1, "Murloc Tidecaller")
-        playTriggers.add(new MTPhaseTrigger())
+        playTriggers.add(new MTTrigger())
     }
 
-    class MTPhaseTrigger extends PhaseTrigger {
+    class MTTrigger extends Trigger {
         boolean trigger(Phase phase, Game game) {
             phase instanceof EarlyOnSummonPhase && phase.minion.getFrom(game)['race'] == Creature.Race.MURLOC;
         }

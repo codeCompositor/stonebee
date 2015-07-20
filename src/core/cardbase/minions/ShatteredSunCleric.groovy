@@ -3,7 +3,6 @@ package core.cardbase.minions
 import core.Game
 import core.Link
 import core.buff.AttackBuff
-import core.buff.Buff
 import core.buff.HealthBuff
 import core.card.creature.Creature
 import core.card.creature.Minion
@@ -18,7 +17,7 @@ class ShatteredSunCleric extends Minion {
     class SSCBattlecry extends TargetableBattlecryPhase {
         void occur(Game game) {
             super.occur(game);
-            Buff buff = new AttackBuff(1) + new HealthBuff(1)
+            def buff = new AttackBuff(1) + new HealthBuff(1)
             target.getFrom(game).buffs.add(buff)
         }
 

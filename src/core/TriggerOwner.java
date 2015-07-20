@@ -1,11 +1,11 @@
 package core;
 
-import core.phase.PhaseTrigger;
+import core.trigger.Trigger;
 
 import java.util.List;
 
 public interface TriggerOwner {
-    List<Link<PhaseTrigger>> getTriggers();
+    List<Link<Trigger>> getTriggers();
 
-    void setTriggers(List<Link<PhaseTrigger>> triggers);
+    void setTriggers(List<Link<Trigger>> triggers);
 }

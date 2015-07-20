@@ -3,15 +3,15 @@ package core.buff
 import core.Entity
 import core.card.Card
 
-public class ManaBuff extends Buff {
-    final Closure<Integer> f;
+class ManaBuff extends Buff {
+    final Closure<Integer> f
 
     ManaBuff(Closure<Integer> f) {
         this.f = f;
     }
 
     ManaBuff(int delta) {
-        this.f = { it + delta };
+        this.f = { it + delta }
     }
 
     void apply(Entity entity) {

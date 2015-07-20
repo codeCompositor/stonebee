@@ -3,7 +3,7 @@ package core.buff
 import core.Entity
 import core.card.creature.Creature
 
-public class HealthBuff extends Buff {
+class HealthBuff extends Buff {
     final Closure<Integer> f;
 
     HealthBuff(Closure<Integer> f) {

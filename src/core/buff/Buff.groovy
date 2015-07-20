@@ -4,11 +4,11 @@ import core.Copyable
 import core.Entity
 
 abstract class Buff implements Copyable {
-    abstract void apply(Entity entity);
+    abstract void apply(Entity entity)
 
     Buff plus(Buff buff) {
-        new BuffsSum(this, buff)
+        new BuffUnion(this, buff)
     }
 
-    abstract Buff copy();
+    abstract Buff copy()
 }

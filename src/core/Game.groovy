@@ -6,6 +6,7 @@ import core.card.creature.Creature
 import core.card.creature.Minion
 import core.cardbase.heroes.JainaProudmoore
 import core.phase.*
+import core.trigger.Trigger
 
 /**
  * This is main class of Core module
@@ -16,11 +17,11 @@ public class Game implements Copyable<Game> {
     /**
      * Contains all triggers
      */
-    public List<PhaseTrigger> allTriggers //TODO: Make this a Map object
+    public List<Trigger> allTriggers //TODO: Make this a Map object
     /**
      * Contains indexes of triggers from allTriggers list in order from never to older
      */
-    public LinkedList<Link<PhaseTrigger>> triggers
+    public LinkedList<Link<Trigger>> triggers
     public Closure targetChooser
     public Stack<Phase> phaseStack
     public int currentTarget

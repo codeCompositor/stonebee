@@ -8,8 +8,8 @@ import core.card.creature.Creature
 import core.card.creature.Minion
 import core.phase.EndOfTurnPhase
 import core.phase.Phase
-import core.phase.PhaseTrigger
 import core.phase.TargetableBattlecryPhase
+import core.trigger.Trigger
 
 class AbusiveSergeant extends Minion {
     AbusiveSergeant() {
@@ -36,7 +36,7 @@ class AbusiveSergeant extends Minion {
 
     }
 
-    private class ASTrigger extends PhaseTrigger {
+    private class ASTrigger extends Trigger {
         final Link<Creature> target;
         final Link<Buff> buff;
 

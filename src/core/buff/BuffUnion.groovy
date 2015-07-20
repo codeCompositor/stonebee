@@ -2,10 +2,10 @@ package core.buff
 
 import core.Entity
 
-public class BuffsSum extends Buff {
+class BuffUnion extends Buff {
     Buff[] buffs
 
-    BuffsSum(Buff... buffs) {
+    BuffUnion(Buff... buffs) {
         this.buffs = buffs
     }
 
@@ -13,7 +13,7 @@ public class BuffsSum extends Buff {
         buffs.each { it.apply(entity) }
     }
 
-    BuffsSum copy() {
-        new BuffsSum(buffs)
+    BuffUnion copy() {
+        new BuffUnion(buffs*.copy() as Buff[])
     }
 }
