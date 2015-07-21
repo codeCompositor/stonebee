@@ -1,15 +1,15 @@
 package core
 
-import core.trigger.Trigger
+import core.phase.TriggeredPhase
 
 trait Entity implements PlayerOwnable, Copyable, Linkable, TriggerOwner {
     Link link
     Link<Player> player
-    List<Link<Trigger>> triggers = []
-    List<Trigger> playTriggers = []
-    List<Trigger> handTriggers = []
-    List<Trigger> deckTriggers = []
-    List<Trigger> graveyardTriggers = []
+    List<Link<TriggeredPhase>> triggers = []
+    List<TriggeredPhase> playTriggers = []
+    List<TriggeredPhase> handTriggers = []
+    List<TriggeredPhase> deckTriggers = []
+    List<TriggeredPhase> graveyardTriggers = []
     Map tags = [:]
 
     def getAt(String property) {

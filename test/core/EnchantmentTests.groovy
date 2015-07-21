@@ -3,16 +3,16 @@ package core
 import core.cardbase.minions.ChillwindYeti
 import core.cardbase.spells.Equality
 
-public class EnchantmentTests extends GroovyTestCase {
-    private Player player;
-    private Player opponent;
-    private Game game;
+class EnchantmentTests extends GroovyTestCase {
+    Player player;
+    Player opponent;
+    Game game;
 
-    public void setUp() {
+    void setUp() {
         game = new Game(player = new Player(), opponent = new Player());
     }
 
-    public void testEquality() {
+    void testEquality() {
         def yeti = new ChillwindYeti();
         def equality = new Equality();
         def yetiLink = new Link(yeti, game);

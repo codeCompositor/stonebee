@@ -9,7 +9,7 @@ import core.card.creature.Minion
 import core.phase.EndOfTurnPhase
 import core.phase.Phase
 import core.phase.TargetableBattlecryPhase
-import core.trigger.Trigger
+import core.phase.TriggeredPhase
 
 class AbusiveSergeant extends Minion {
     AbusiveSergeant() {
@@ -36,17 +36,16 @@ class AbusiveSergeant extends Minion {
 
     }
 
-    private class ASTrigger extends Trigger {
+    private class ASTrigger extends TriggeredPhase {
         final Link<Creature> target;
         final Link<Buff> buff;
 
         ASTrigger(Link<Creature> target, Link<Buff> buff) {
             this.target = target;
             this.buff = buff;
-        }
-
-        boolean trigger(Phase phase, Game game) {
-            return phase instanceof EndOfTurnPhase;
+            this.trigger = { Phase phase, Game game ->
+                phase instanceof EndOfTurnPhase
+            }
         }
 
         void occur(Game game) {

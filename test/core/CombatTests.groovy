@@ -4,16 +4,16 @@ import core.card.creature.Minion
 import core.cardbase.minions.BloodfenRaptor
 import core.cardbase.minions.ChillwindYeti
 
-public class CombatTests extends GroovyTestCase {
-    private Player player;
-    private Player opponent;
-    private Game game;
+class CombatTests extends GroovyTestCase {
+    Player player;
+    Player opponent;
+    Game game;
 
-    public void setUp() {
+    void setUp() {
         game = new Game(player = new Player(), opponent = new Player());
     }
 
-    public void testBasicMinionsAttack() {
+    void testBasicMinionsAttack() {
         def yeti1 = new ChillwindYeti(); // 4/5
         def yeti2 = new ChillwindYeti(); // 4/5
         def raptor = new BloodfenRaptor(); // 3/2
@@ -70,7 +70,7 @@ public class CombatTests extends GroovyTestCase {
 //        assertEquals("Verify player's hero is at 28 health", 28, player.hero.getHealth());
 //    }
 
-    public void testGameResult() {
+    void testGameResult() {
         def destroyer = new Link(new Minion(30, 1, 0, "DESTROYER"), game);
         player.play.add(destroyer, game);
         game.combat(destroyer, opponent.hero);

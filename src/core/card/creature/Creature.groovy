@@ -22,7 +22,7 @@ trait Creature extends Entity implements Copyable {
      * Whenever creature attacks this minion it deals damage to him
      * @param attacker a creature that attacks this minion
      */
-    def defend(Link<? extends Creature> attacker, Game game) {
+    void defend(Link<? extends Creature> attacker, Game game) {
         game.addPhase(new DamagePhase(this['attack'], attacker, link))
     }
 
@@ -30,11 +30,15 @@ trait Creature extends Entity implements Copyable {
      * Whenever this minion attacks creature he deals damage to it
      * @param defender a creature that is attacked by this minion
      */
-    def attack(Link<? extends Creature> defender, Game game) {
+    void attack(Link<? extends Creature> defender, Game game) {
         game.addPhase(new DamagePhase(this['attack'], defender, link))
     }
 
-    def takeDamage(int damage) { this['health'] -= damage }
+    void takeDamage(int damage) { this['health'] -= damage }
+
+    void silence() {
+        buffs.clear()
+    }
 
     void updateStats() {
         def oldHealth = this['maxHealth']
