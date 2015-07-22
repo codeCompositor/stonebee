@@ -8,8 +8,7 @@ public class PreparationPhase extends Phase {
     private Link<Creature> attacker;
     private Link<Creature> defender;
 
-    public PreparationPhase(Link<Creature> attacker, Link<Creature> defender, boolean game) {
-        super(game);
+    public PreparationPhase(Link<Creature> attacker, Link<Creature> defender) {
         this.attacker = attacker;
         this.defender = defender;
     }

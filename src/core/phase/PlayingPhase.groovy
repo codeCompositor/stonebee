@@ -27,9 +27,10 @@ public class PlayingPhase extends Phase {
         def card = link.getFrom(game)
         if (!(link in game.hand)) {
             System.out.printf("Playing Phase of %s aborted because it is not in hand zone\n", card)
+            pendingResolution = true
             return
         }
-        super.occur(game)
+        checkTriggers(game)
         card.getPlayer(game).mana -= card['mana']
         if (card instanceof Minion) {
             Utils.moveEntity(game, HAND, PLAY, link)

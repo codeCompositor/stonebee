@@ -15,7 +15,6 @@ final class Utils {
     static moveEntity(Game game, ZoneType initial, ZoneType resulting, Link<Entity> entity) {
         getZone(initial, entity.getFrom(game).getPlayer(game)).remove(entity, game)
         getZone(resulting, entity.getFrom(game).getPlayer(game)).add(entity, game)
-        entity.getFrom(game).triggers.each { it.getFrom(game).entity = entity }
     }
 
     static getZone(ZoneType zone, owner) {

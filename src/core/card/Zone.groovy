@@ -1,22 +1,22 @@
-package core.card;
+package core.card
 
-import core.*;
+import core.*
 
-public class Zone<E extends Copyable> extends LinkedList<Link<E>> implements PlayerOwnable, Copyable<Zone> {
+class Zone<E extends Copyable> extends LinkedList<Link<E>> implements PlayerOwnable, Copyable<Zone> {
     /**
      * Maximal numbers of cards in zone
      */
-    private int maxSize;
+    private int maxSize
     /**
      * Owner of this zone
      */
-    Link<Player> player;
-    ZoneType zoneType;
+    Link<Player> player
+    ZoneType zoneType
 
     Zone(int maxSize = -1, Link<Player> player = null, ZoneType zoneType) {
-        this.player = player;
-        this.maxSize = maxSize;
-        this.zoneType = zoneType;
+        this.player = player
+        this.maxSize = maxSize
+        this.zoneType = zoneType
     }
 
     /**
@@ -24,53 +24,58 @@ public class Zone<E extends Copyable> extends LinkedList<Link<E>> implements Pla
      * @param o element to be appended to this zone
      * @return <tt>true</tt> if zone isn't full
      */
-    boolean add(Link<E> o) {
-        return (maxSize < 0 || size() < maxSize) && super.add(o);
+    boolean add(Link<E> o, int index = size()) {
+        if (maxSize < 0 || size() < maxSize) {
+            super.add(index, o)
+            return true
+        }
+        false
     }
 
-    boolean add(Link<E> o, Game game) {
-        if (add(o)) {
+    boolean add(Link<E> o, Game game, int index = size()) {
+        if (add(o, index)) {
             def e = o.getFrom(game)
             if (e instanceof Entity) {
                 e.player = player
-                e.(zoneType.toString().toLowerCase() + "Triggers").each {
+                e.zoneTriggers[zoneType].each {
                     it.entity = o
                     Link link = new Link(it, game)
                     e.triggers.add(link)
                     game.triggers.add(link)
                 }
             }
-            return Utils.getZone(zoneType, game).add(o);
+            return Utils.getZone(zoneType, game).add(o)
         }
-        return false;
+        false
     }
 
-    boolean add(E e, Game game) {
-        if (maxSize < 0 || size() < maxSize) {
-            return add(new Link<E>(e, game), game);
-        }
-        return false;
+    boolean add(E e, Game game, int index = size()) {
+        add(new Link(e, game), game, index)
     }
 
     boolean remove(Link<E> o) {
-        return super.remove(o);
+        super.remove(o)
     }
 
     boolean remove(Link<E> o, Game game) {
-        return remove(o) && Utils.getZone(zoneType, game).remove(o);
+        if (remove(o)) {
+            def e = o.getFrom(game)
+            if (e instanceof Entity) {
+                game.triggers.removeAll(e.triggers)
+                e.triggers.clear()
+            }
+            return Utils.getZone(zoneType, game).remove(o)
+        }
+        false
     }
 
-    Link<Player> getPlayer() {
-        return player;
-    }
-
-    void setPlayer(Link<Player> player) {
-        this.player = player;
+    boolean remove(E e, Game game) {
+        remove(new Link(e, game), game)
     }
 
     Zone<E> copy() {
-        Zone<E> z = new Zone<>(maxSize, player.copy(), zoneType);
-        z.addAll(this);
-        return z;
+        Zone<E> z = new Zone(maxSize, player.copy(), zoneType)
+        z.addAll(this)
+        z
     }
 }

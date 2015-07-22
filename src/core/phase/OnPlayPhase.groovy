@@ -1,8 +1,8 @@
-package core.phase;
+package core.phase
 
-import core.Game;
-import core.Link;
-import core.card.Card;
+import core.Game
+import core.Link
+import core.card.Card
 
 /**
  * Minions:<br>
@@ -12,24 +12,20 @@ import core.card.Card;
  * Mana Wyrm, Burly Rockjaw Trogg, Secretkeeper and Violet Teacher. Counterspell also triggers here.
  * <br>This phase is only used to activate triggers.
  */
-public class OnPlayPhase extends Phase {
-    private final Link<? extends Card> card;
+class OnPlayPhase extends Phase {
+    final Link<? extends Card> card
 
-    public OnPlayPhase(Link<? extends Card> card, boolean outermost) {
+    OnPlayPhase(Link<? extends Card> card, boolean outermost) {
         super(outermost);
         this.card = card;
     }
 
-    @Override
-    public void occur(Game game) {
+    void occur(Game game) {
         if (!game.play.contains(card)) {
-            System.out.printf("On Play Phase of %s aborted because he is not in play zone\n", card.getFrom(game));
-            return;
+            System.out.printf("On Play Phase of %s aborted because he is not in play zone\n", card.getFrom(game))
+            pendingResolution = true
+            return
         }
-        super.occur(game);
-    }
-
-    public Link<? extends Card> getCard() {
-        return card;
+        checkTriggers(game)
     }
 }

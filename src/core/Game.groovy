@@ -66,28 +66,11 @@ public class Game implements Copyable<Game> {
     void run() {
         while (!phaseStack.empty) {
             Phase phase = phaseStack.peek()
-            if (phase.pendingResolution) {
+            if (phase.pendingResolution)
                 phaseStack.pop()
-                if (phase.outermost) {
-                    updateStats()
-                    handleDeaths()
-                    checkForGameEnd()
-                }
-            } else {
+            else
                 phase.occur(this)
-                phase.pendingResolution = true
-            }
         }
-    }
-
-    /**
-     * Process death, activate death-related triggers.
-     * This method is used only in outermost Phase.
-     */
-    private void handleDeaths() {
-        def deadCreatures = play.findAll { it.getFrom(this).dead }
-        if (!deadCreatures.empty)
-            addPhase(new DeathPhase(deadCreatures));
     }
 
     void playSpell(Spell spell) {
@@ -139,8 +122,10 @@ public class Game implements Copyable<Game> {
     }
 
     void combat(Link<Creature> attacker, Link<Creature> defender) {
-        addPhase(new CombatPhase(attacker, defender, true))
-        addPhase(new PreparationPhase(attacker, defender, true))
+        addPhase(new DeathPhase())
+        addPhase(new CombatPhase(attacker, defender))
+        addPhase(new DeathPhase())
+        addPhase(new PreparationPhase(attacker, defender))
     }
 
     void endTurn() {
