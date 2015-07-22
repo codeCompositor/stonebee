@@ -4,6 +4,7 @@ import core.Link
 import core.Player
 import core.buff.Buff
 import core.card.Card
+import core.card.ZoneType
 import core.phase.BattlecryPhase
 
 class Minion implements Card, Creature {
@@ -25,6 +26,7 @@ class Minion implements Card, Creature {
         this['health'] = this['maxHealth'] = this['nativeHealth'] = health
         this['pendingDestroy'] = false;
         this['canBeTargeted'] = true;
+        ZoneType.values().each { zoneTriggers[it] = new LinkedList() }
         buffs = new ArrayList<Buff>()
     }
 
@@ -43,10 +45,7 @@ class Minion implements Card, Creature {
         m.player = player.copy()
         m.tags.putAll(tags)
         m.buffs = buffs*.copy()
-        m.playTriggers = playTriggers*.copy()
-        m.deckTriggers = deckTriggers*.copy()
-        m.handTriggers = handTriggers*.copy()
-        m.graveyardTriggers = graveyardTriggers*.copy()
+        zoneTriggers.each { m.zoneTriggers.put(it.key, it.value*.copy()) }
         m.battlecry = battlecry == null ? null : battlecry.copy()
         return m
     }

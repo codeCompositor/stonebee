@@ -7,6 +7,8 @@ import core.card.creature.Minion
 import core.phase.DamagePhase
 import core.phase.SpellTextPhase
 
+import static core.card.ZoneType.PLAY
+
 class Flamestrike extends Spell {
     Flamestrike() {
         super(7, "Flamestrike");
@@ -20,7 +22,8 @@ class Flamestrike extends Spell {
 
     private class FlamestrikeTextPhase extends SpellTextPhase {
         void occur(Game game) {
-            for (link in game.oppositePlayer(getPlayer().getFrom(game)).play)
+            super.occur(game)
+            for (link in game.oppositePlayer(getPlayer(game)).zones[PLAY])
                 if (link.getFrom(game) instanceof Minion)
                     game.addPhase(new DamagePhase(4, link, spell))
         }

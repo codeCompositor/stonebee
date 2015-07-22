@@ -64,7 +64,7 @@ class Zone<E extends Entity> extends LinkedList<Link<E>> implements PlayerOwnabl
                 game.triggers.removeAll(e.triggers)
                 e.triggers.clear()
             }
-            return Utils.getZone(zoneType, game).remove(o)
+            return game.zones[zoneType].remove(o)
         }
         false
     }

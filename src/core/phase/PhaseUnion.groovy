@@ -14,10 +14,6 @@ class PhaseUnion extends Phase {
         phases.each { it.occur(game) }
     }
 
-    void checkTriggers(Game game) {
-        phases.each { it.checkTriggers(game) }
-    }
-
     PhaseUnion copy() {
         def copy = (PhaseUnion) super.copy()
         copy.phases = phases*.copy()

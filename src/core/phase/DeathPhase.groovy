@@ -2,7 +2,9 @@ package core.phase
 
 import core.Game
 import core.Utils
-import core.card.ZoneType
+
+import static core.card.ZoneType.GRAVEYARD
+import static core.card.ZoneType.PLAY
 
 /**
  * Process death, activate death-related triggers.
@@ -14,9 +16,9 @@ class DeathPhase extends Phase {
 
     void occur(Game game) {//TODO: Add deathrattle
         super.occur(game)
-        def deadCreatures = game.play.findAll { it.getFrom(game).dead }
+        def deadCreatures = game.zones[PLAY].findAll { it.getFrom(game).dead }
         deadCreatures.each {
-            Utils.moveEntity(game, ZoneType.PLAY, ZoneType.GRAVEYARD, it)
+            Utils.moveEntity(game, PLAY, GRAVEYARD, it)
             game.addPhase(new CreatureDeathPhase(it))
         }
     }

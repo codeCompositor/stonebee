@@ -26,8 +26,7 @@ class EnchantmentTests extends GroovyTestCase {
         game.run()
         assertEquals("Verify Yeti has 1 hp", 1, yeti['health'])
         assertEquals("Verify player's hero has 30 hp", 30, player.getHero(game)['health'])
-        //TODO: Add silence
-        yeti.getBuffs().clear()
+        yeti.silence()
         yeti.updateStats()
         assertEquals("Verify Yeti has 5 hp", 5, yeti['health'])
     }

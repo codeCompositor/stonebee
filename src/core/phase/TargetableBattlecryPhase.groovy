@@ -24,6 +24,7 @@ class TargetableBattlecryPhase extends BattlecryPhase implements Targetable {
     }
 
     void occur(Game game) {
+        super.occur(game)
         if (game.currentTarget < 0)
             game.targetChooser.call(getValidTargets(game).size(), game)
         target = getValidTargets(game)[game.currentTarget]

@@ -5,47 +5,42 @@ import core.Link
 import core.card.creature.Creature
 
 public class PreparationPhase extends Phase {
-    private Link<Creature> attacker;
-    private Link<Creature> defender;
+    private Link<Creature> attacker
+    private Link<Creature> defender
 
     public PreparationPhase(Link<Creature> attacker, Link<Creature> defender) {
-        this.attacker = attacker;
-        this.defender = defender;
+        this.attacker = attacker
+        this.defender = defender
     }
 
-    @Override
-    public void occur(Game game) {
+    void occur(Game game) {
         if (!checkHighPriorityTriggers(game) && !checkLowPriorityTriggers(game))
-            setPendingResolution(true);
+            setPendingResolution(true)
     }
 
     private boolean checkHighPriorityTriggers(Game game) {
-        List<Phase> greedyQueue = new ArrayList<>();
-        boolean result = false;
-        for (TriggeredPhase trigger : game.triggers*.getFrom(game)) {
-            if (trigger.getPriority() > 0 && trigger.trigger(this, game)) {
-                greedyQueue.add(trigger);
-                result = true;
+        def greedyQueue = new ArrayList<Phase>()
+        def result = false
+        game.triggers*.getFrom(game).each {
+            if (it.getPriority() > 0 && it.trigger(this, game)) {
+                greedyQueue.add(it)
+                result = true
             }
         }
-        for (Phase phase : greedyQueue) {
-            game.addPhase(phase);
-        }
-        return result;
+        greedyQueue.each { game.addPhase(it) }
+        result
     }
 
     private boolean checkLowPriorityTriggers(Game game) {
-        List<Phase> greedyQueue = new ArrayList<>();
-        boolean result = false;
-        for (TriggeredPhase trigger : game.triggers*.getFrom(game)) {
-            if (trigger.getPriority() == 0 && trigger.trigger(this, game)) {
-                greedyQueue.add(trigger);
-                result = true;
+        def greedyQueue = new ArrayList<Phase>()
+        def result = false
+        game.triggers*.getFrom(game).each {
+            if (it.getPriority() > 0 && it.trigger(this, game)) {
+                greedyQueue.add(it)
+                result = true
             }
         }
-        for (Phase phase : greedyQueue) {
-            game.addPhase(phase);
-        }
-        return result;
+        greedyQueue.each { game.addPhase(it) }
+        result
     }
 }

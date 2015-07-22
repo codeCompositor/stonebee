@@ -16,21 +16,21 @@ import static core.card.ZoneType.*
  * In this phase card moves from hand to play zone and player's amount of mana decremented by mana cost of card
  */
 public class PlayingPhase extends Phase {
-    final Link<? extends Card> link;
+    final Link<Card> link;
 
-    PlayingPhase(Link<? extends Card> card, boolean outermost) {
+    PlayingPhase(Link<Card> card, boolean outermost) {
         super(outermost);
         link = card;
     }
 
     void occur(Game game) {
         def card = link.getFrom(game)
-        if (!(link in game.hand)) {
+        if (!(link in game.zones[HAND])) {
             System.out.printf("Playing Phase of %s aborted because it is not in hand zone\n", card)
             pendingResolution = true
             return
         }
-        checkTriggers(game)
+        super.occur(game)
         card.getPlayer(game).mana -= card['mana']
         if (card instanceof Minion) {
             Utils.moveEntity(game, HAND, PLAY, link)

@@ -8,10 +8,12 @@ import core.phase.EarlyOnSummonPhase
 import core.phase.Phase
 import core.phase.TriggeredPhase
 
+import static core.card.ZoneType.PLAY
+
 public class MurlocTidecaller extends Minion {
     MurlocTidecaller() {
         super(1, 2, 1, "Murloc Tidecaller")
-        playTriggers.add(new MTTrigger())
+        zoneTriggers[PLAY].add(new MTTrigger())
     }
 
     class MTTrigger extends TriggeredPhase {
