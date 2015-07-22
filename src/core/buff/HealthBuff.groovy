@@ -11,7 +11,7 @@ class HealthBuff extends Buff {
     }
 
     HealthBuff(int delta) {
-        this.f = { it + delta };
+        this.f = { it + delta }
     }
 
     void apply(Entity entity) {

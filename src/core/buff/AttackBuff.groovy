@@ -11,7 +11,7 @@ class AttackBuff extends Buff {
     }
 
     AttackBuff(int delta) {
-        this.f = { it + delta };
+        this.f = { it + delta }
     }
 
     void apply(Entity entity) {

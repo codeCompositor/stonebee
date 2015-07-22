@@ -6,11 +6,11 @@ import core.card.Card
 import core.card.creature.Creature
 
 public class DamagePhase extends Phase {
-    final Link<? extends Card> attacker
     final int damage
-    final Link<? extends Creature> target
+    final Link<Card> attacker
+    final Link<Creature> target
 
-    DamagePhase(int damage, Link<? extends Creature> target, Link<? extends Card> attacker) {
+    DamagePhase(int damage, Link<Creature> target, Link<Card> attacker) {
         super(false)
         this.target = target
         this.damage = damage
@@ -18,8 +18,8 @@ public class DamagePhase extends Phase {
     }
 
     void occur(Game game) {
-        target.getFrom(game).takeDamage(damage)
         super.occur(game)
+        target.getFrom(game).takeDamage(damage)
     }
 
     String toString() {

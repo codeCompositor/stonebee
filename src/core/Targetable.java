@@ -10,6 +10,4 @@ public interface Targetable {
     void setTarget(Link<Creature> target);
 
     List<Link<Creature>> getValidTargets(Game game);
-
-    void goOn();
 }

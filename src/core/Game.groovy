@@ -2,6 +2,7 @@ package core
 
 import core.card.Card
 import core.card.Spell
+import core.card.ZoneType
 import core.card.creature.Creature
 import core.card.creature.Minion
 import core.cardbase.heroes.JainaProudmoore
@@ -25,10 +26,7 @@ public class Game implements Copyable<Game> {
     public Stack<Phase> phaseStack
     public int currentTarget
     public List<Card> allCards
-    public LinkedList<Link<Creature>> play
-    public LinkedList<Link<? extends Card>> hand
-    public LinkedList<Link<? extends Card>> deck
-    public LinkedList<Link<? extends Card>> graveyard
+    Map<ZoneType, LinkedList<Link<Entity>>> zones
     public List<Copyable> allObjects
     private GameResult result
 
@@ -42,10 +40,7 @@ public class Game implements Copyable<Game> {
         allTriggers = new ArrayList<>()
         allCards = new ArrayList<>()
         triggers = new LinkedList<>()
-        play = new LinkedList<>()
-        hand = new LinkedList<>()
-        deck = new LinkedList<>()
-        graveyard = new LinkedList<>()
+        ZoneType.values().each { zones[it] = new LinkedList() }
         phaseStack = new Stack<>()
         resetCurrentTarget()
     }

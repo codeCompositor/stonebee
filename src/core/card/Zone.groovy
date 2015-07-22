@@ -2,7 +2,7 @@ package core.card
 
 import core.*
 
-class Zone<E extends Copyable> extends LinkedList<Link<E>> implements PlayerOwnable, Copyable<Zone> {
+class Zone<E extends Entity> extends LinkedList<Link<E>> implements PlayerOwnable, Copyable<Zone> {
     /**
      * Maximal numbers of cards in zone
      */
@@ -44,7 +44,7 @@ class Zone<E extends Copyable> extends LinkedList<Link<E>> implements PlayerOwna
                     game.triggers.add(link)
                 }
             }
-            return Utils.getZone(zoneType, game).add(o)
+            return game.zones[zoneType].add(o)
         }
         false
     }

@@ -1,25 +1,23 @@
 package core
 
-import core.card.Card
 import core.card.DeckZone
 import core.card.Zone
 import core.card.ZoneType
-import core.card.creature.Creature
 import core.card.creature.Hero
 
+import static core.card.ZoneType.*
+
 public class Player implements Copyable<Player>, Linkable<Player> {
-    Zone<Creature> play;
-    DeckZone deck;
-    Zone<Card> hand, graveyard;
-    Link<Hero> hero;
-    int mana;
-    Link<Player> link;
+    HashMap<ZoneType, Zone<Entity>> zones
+    Link<Hero> hero
+    int mana
+    Link<Player> link
 
     Player() {
-        play = new Zone<>(7, ZoneType.PLAY);
-        hand = new Zone<>(10, ZoneType.HAND);
-        deck = new DeckZone();
-        graveyard = new Zone<>(ZoneType.GRAVEYARD);
+        zones[PLAY] = new Zone(7, PLAY)
+        zones[HAND] = new Zone(10, PLAY)
+        zones[DECK] = new DeckZone()
+        zones[GRAVEYARD] = new Zone(GRAVEYARD)
         hero = null;
         mana = 0;
     }
@@ -35,19 +33,13 @@ public class Player implements Copyable<Player>, Linkable<Player> {
     }
 
     void setLink(Link<Player> link) {
-        this.link = link;
-        play.setPlayer(link);
-        hand.setPlayer(link);
-        deck.setPlayer(link);
-        graveyard.setPlayer(link);
+        this.link = link
+        zones.each { it.value.setPlayer(link) }
     }
 
     Player copy() {
         Player p = new Player();
-        p.play = play.copy();
-        p.hand = hand.copy();
-        p.deck = deck.copy();
-        p.graveyard = graveyard.copy();
+        zones.each { p.zones.put(it.key, it.value.copy()) }
         p.hero = hero;
         p.mana = mana;
         return p;
