@@ -5,7 +5,8 @@ import core.Player
 import core.buff.Buff
 import core.card.Weapon
 
-import static core.Tags.*
+import static core.EntityType.HERO
+import static core.TagType.*
 
 class Hero implements Creature {
     Weapon weapon
@@ -16,6 +17,7 @@ class Hero implements Creature {
     Hero() {}
 
     Hero(int attack, int health, int armor, String name) {
+        this[TYPE] = HERO
         this[ARMOR] = armor
         this[NAME] = name
         this[ATTACK] = this[NATIVE_ATTACK] = attack

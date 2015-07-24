@@ -5,7 +5,7 @@ import core.card.creature.Minion
 import core.cardbase.minions.*
 import core.phase.TargetableBattlecryPhase
 
-import static core.Tags.*
+import static core.TagType.*
 import static core.card.ZoneType.HAND
 import static core.card.ZoneType.PLAY
 
@@ -30,7 +30,7 @@ class SummonMinionTests extends GroovyTestCase {
     void testZoneChange() {
         def yeti = new Link<Minion>(new ChillwindYeti(), game)
         player.zones[HAND].add(yeti, game)
-        yeti.getFrom(game)['mana'] = 0
+        yeti.getFrom(game)[MANA] = 0
         game.playMinion(yeti)
         game.run()
         assertTrue("Verify Yeti is not in hand zone", !player.zones[HAND].contains(yeti))
@@ -70,6 +70,7 @@ class SummonMinionTests extends GroovyTestCase {
         assertTrue("Verify Sun Cleric can target Yeti", yetiLink in cleric.getFrom(game).battlecry.getValidTargets(game))
         game.playMinion(cleric)
         game.run()
+        yetiLink.getFrom(game).updateStats()
         assertEquals("Verify Yeti has 5 attack", 5, yetiLink.getFrom(game)[ATTACK])
         assertEquals("Verify Yeti has 6 health", 6, yetiLink.getFrom(game)[HEALTH])
         yetiLink.getFrom(game).with {

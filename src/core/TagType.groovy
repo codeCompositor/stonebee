@@ -1,7 +1,9 @@
 package core
 
-enum Tags {
-    ZONE,
+import org.testng.internal.collections.Pair
+
+enum TagType {
+    ZONE, SIDE, TYPE,
     NAME,
     MANA, NATIVE_MANA,
     ATTACK, NATIVE_ATTACK,
@@ -10,4 +12,6 @@ enum Tags {
     ARMOR,
     RACE,
     DURABILITY
+
+    Pair<TagType, Object> minus(object) { new Pair(this, object) }
 }

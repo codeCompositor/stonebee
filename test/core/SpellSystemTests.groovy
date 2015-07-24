@@ -4,7 +4,7 @@ import core.cardbase.minions.BloodfenRaptor
 import core.cardbase.minions.ChillwindYeti
 import core.cardbase.spells.Flamestrike
 
-import static Tags.HEALTH
+import static TagType.HEALTH
 import static core.card.ZoneType.*
 
 public class SpellSystemTests extends GroovyTestCase {

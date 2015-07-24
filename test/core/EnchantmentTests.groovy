@@ -3,7 +3,7 @@ package core
 import core.cardbase.minions.ChillwindYeti
 import core.cardbase.spells.Equality
 
-import static Tags.HEALTH
+import static TagType.HEALTH
 import static core.card.ZoneType.HAND
 import static core.card.ZoneType.PLAY
 

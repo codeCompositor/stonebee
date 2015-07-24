@@ -7,7 +7,7 @@ import core.Link
 import core.buff.Buff
 import core.phase.DamagePhase
 
-import static core.Tags.*
+import static core.TagType.*
 
 trait Creature extends Entity implements Copyable {
     abstract List<Buff> getBuffs()

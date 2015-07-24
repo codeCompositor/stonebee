@@ -4,7 +4,7 @@ import core.card.creature.Minion
 import core.cardbase.minions.BloodfenRaptor
 import core.cardbase.minions.ChillwindYeti
 
-import static Tags.HEALTH
+import static TagType.HEALTH
 import static core.card.ZoneType.GRAVEYARD
 import static core.card.ZoneType.PLAY
 

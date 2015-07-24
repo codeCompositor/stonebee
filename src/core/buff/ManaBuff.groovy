@@ -3,6 +3,8 @@ package core.buff
 import core.Entity
 import core.card.Card
 
+import static core.TagType.MANA
+
 class ManaBuff extends Buff {
     final Closure<Integer> f
 
@@ -16,7 +18,7 @@ class ManaBuff extends Buff {
 
     void apply(Entity entity) {
         if (entity instanceof Card) {
-            entity['mana'] = f(entity['mana'])
+            entity[MANA] = f(entity[MANA])
             return
         }
         throw new Exception("Mana Buff can be applied only to Card")

@@ -8,13 +8,13 @@ trait Entity implements PlayerOwnable, Copyable, Linkable, TriggerOwner {
     Link<Player> player
     List<Link<TriggeredPhase>> triggers = []
     Map<ZoneType, List<TriggeredPhase>> zoneTriggers = [:]
-    Map<Tags, Object> tags = [:]
+    Map<TagType, Object> tags = [:]
 
-    def getAt(Tags tag) {
+    def getAt(TagType tag) {
         tags[tag]
     }
 
-    def putAt(Tags tag, value) {
+    def putAt(TagType tag, value) {
         tags[tag] = value
     }
 }

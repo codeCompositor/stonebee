@@ -8,6 +8,7 @@ import core.phase.EarlyOnSummonPhase
 import core.phase.Phase
 import core.phase.TriggeredPhase
 
+import static core.TagType.RACE
 import static core.card.ZoneType.PLAY
 
 public class MurlocTidecaller extends Minion {
@@ -20,7 +21,7 @@ public class MurlocTidecaller extends Minion {
         MTTrigger() {
             super()
             trigger = { Phase phase, Game game ->
-                phase instanceof EarlyOnSummonPhase && phase.minion.getFrom(game)['race'] == Creature.Race.MURLOC
+                phase instanceof EarlyOnSummonPhase && phase.minion.getFrom(game)[RACE] == Creature.Race.MURLOC
             }
         }
 

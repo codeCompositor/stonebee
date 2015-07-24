@@ -7,6 +7,7 @@ import core.card.creature.Creature
 import core.card.creature.Minion
 import core.cardbase.heroes.JainaProudmoore
 import core.phase.*
+import core.selector.Selector
 
 import static core.card.ZoneType.PLAY
 
@@ -163,6 +164,14 @@ public class Game implements Copyable<Game> {
 
     void resetCurrentTarget() {
         currentTarget = -1
+    }
+
+    void damage(int damage, Selector selector, Link<Entity> link) {
+        def phase = new Phase()
+        selector.eval(this, link.getFrom(this).player).each {
+            phase += new DamagePhase(damage, it, link)
+        }
+        addPhase(phase)
     }
 
     enum GameResult {

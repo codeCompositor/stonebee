@@ -3,6 +3,8 @@ package core.buff
 import core.Entity
 import core.card.creature.Creature
 
+import static core.TagType.ATTACK
+
 class AttackBuff extends Buff {
     final Closure<Integer> f;
 
@@ -16,7 +18,7 @@ class AttackBuff extends Buff {
 
     void apply(Entity entity) {
         if (entity instanceof Creature) {
-            entity['attack'] = f(entity['attack'])
+            entity[ATTACK] = f(entity[ATTACK])
             return
         }
         throw new Exception("Attack Buff can be applied only to Creature")

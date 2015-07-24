@@ -1,16 +1,16 @@
 package core.phase
 
+import core.Entity
 import core.Game
 import core.Link
-import core.card.Card
 import core.card.creature.Creature
 
 public class DamagePhase extends Phase {
     final int damage
-    final Link<Card> attacker
-    final Link<Creature> target
+    final Link<Entity> attacker
+    final Link<Entity> target
 
-    DamagePhase(int damage, Link<Creature> target, Link<Card> attacker) {
+    DamagePhase(int damage, Link<Entity> target, Link<Entity> attacker) {
         super(false)
         this.target = target
         this.damage = damage
@@ -19,7 +19,11 @@ public class DamagePhase extends Phase {
 
     void occur(Game game) {
         super.occur(game)
-        target.getFrom(game).takeDamage(damage)
+        if (target.getFrom(game) instanceof Creature) {
+            target.getFrom(game).takeDamage(damage)
+            return
+        }
+        throw new Exception("Only Creature can take damage")
     }
 
     String toString() {

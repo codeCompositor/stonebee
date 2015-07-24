@@ -7,6 +7,7 @@ import core.card.Card
 import core.card.Spell
 import core.card.creature.Minion
 
+import static core.TagType.MANA
 import static core.card.ZoneType.*
 
 /**
@@ -31,7 +32,7 @@ public class PlayingPhase extends Phase {
             return
         }
         super.occur(game)
-        card.getPlayer(game).mana -= card['mana']
+        card.getPlayer(game).mana -= card[MANA]
         if (card instanceof Minion) {
             Utils.moveEntity(game, HAND, PLAY, link)
             //game.triggers.addAll(((Minion) card).getPlayTriggers());//TODO: Change triggers (add different types of triggers)

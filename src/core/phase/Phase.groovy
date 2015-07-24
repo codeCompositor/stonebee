@@ -36,4 +36,15 @@ class Phase implements Copyable {
         clone.pendingResolution = pendingResolution
         clone
     }
+
+    Phase plus(Phase phase2) {
+        def phase1 = this
+        new Phase() {
+            void occur(Game game) {
+                super.occur(game)
+                phase1.occur(game)
+                phase2.occur(game)
+            }
+        }
+    }
 }

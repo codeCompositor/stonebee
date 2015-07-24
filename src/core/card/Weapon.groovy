@@ -3,7 +3,7 @@ package core.card
 import core.Link
 import core.Player
 
-import static core.Tags.DURABILITY
+import static core.TagType.DURABILITY
 
 public class Weapon implements Card {//extends Card {
     Link link

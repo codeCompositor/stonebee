@@ -6,7 +6,8 @@ import core.card.Card
 import core.card.ZoneType
 import core.phase.BattlecryPhase
 
-import static core.Tags.*
+import static core.EntityType.MINION
+import static core.TagType.*
 
 class Minion implements Card, Creature {
     List<Buff> buffs
@@ -18,6 +19,7 @@ class Minion implements Card, Creature {
     Minion() {}
 
     Minion(int attack, int health, int mana, String name) {
+        this[TYPE] = MINION
         this[NAME] = name
         this[MANA] = this[NATIVE_MANA] = mana
         this[ATTACK] = this[NATIVE_ATTACK] = attack

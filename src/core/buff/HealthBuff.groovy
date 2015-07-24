@@ -3,6 +3,8 @@ package core.buff
 import core.Entity
 import core.card.creature.Creature
 
+import static core.TagType.MAX_HEALTH
+
 class HealthBuff extends Buff {
     final Closure<Integer> f;
 
@@ -16,7 +18,7 @@ class HealthBuff extends Buff {
 
     void apply(Entity entity) {
         if (entity instanceof Creature) {
-            entity['maxHealth'] = f(entity['maxHealth'])
+            entity[MAX_HEALTH] = f(entity[MAX_HEALTH])
             return
         }
         throw new Exception("Health Buff can be applied only to Creature")
