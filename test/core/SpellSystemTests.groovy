@@ -4,6 +4,7 @@ import core.cardbase.minions.BloodfenRaptor
 import core.cardbase.minions.ChillwindYeti
 import core.cardbase.spells.Flamestrike
 
+import static Tags.HEALTH
 import static core.card.ZoneType.*
 
 public class SpellSystemTests extends GroovyTestCase {
@@ -32,8 +33,8 @@ public class SpellSystemTests extends GroovyTestCase {
         game.playSpell(flamestrike)
         game.run()
 
-        assertEquals("Verify Yeti has 1 health", 1, yeti['health'])
-        assertEquals("Verify Raptor has -2 health", -2, raptor['health'])
+        assertEquals("Verify Yeti has 1 health", 1, yeti[HEALTH])
+        assertEquals("Verify Raptor has -2 health", -2, raptor[HEALTH])
         assertTrue("Verify Raptor is in graveyard zone", raptorLink in game.zones[GRAVEYARD])
         assertTrue("Verify opponent's graveyard contains flamestrike", flamestrikeLink in game.zones[GRAVEYARD])
 
@@ -49,8 +50,8 @@ public class SpellSystemTests extends GroovyTestCase {
         gameCopy.playSpell(flamestrike2)
         gameCopy.run()
 
-        assertEquals("Verify Yeti has -3 health", -3, yetiCopy['health'])
-        assertEquals("Verify Raptor has -2 health", -2, raptorCopy['health'])
+        assertEquals("Verify Yeti has -3 health", -3, yetiCopy[HEALTH])
+        assertEquals("Verify Raptor has -2 health", -2, raptorCopy[HEALTH])
         assertTrue("Verify Yeti is in graveyard zone", yetiLink in playerCopy.zones[GRAVEYARD])
         assertTrue("Verify Raptor is in graveyard zone", raptorLink in playerCopy.zones[GRAVEYARD])
         assertTrue("Verify graveyard contains flamestrike", flamestrikeLink in opponentCopy.zones[GRAVEYARD])

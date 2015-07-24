@@ -4,6 +4,8 @@ import core.Link
 import core.Player
 import core.phase.SpellTextPhase
 
+import static core.Tags.*
+
 class Spell implements Card {
     SpellTextPhase text
 
@@ -11,9 +13,9 @@ class Spell implements Card {
     Link<Player> player
 
     Spell(int mana, String name) {
-        this['mana'] = this['nativeMana'] = mana
-        this['name'] = name
-        this['pendingDestroy'] = false
+        this[MANA] = this[NATIVE_MANA] = mana
+        this[NAME] = name
+        this[PENDING_DESTROY] = false
     }
 
     Spell copy() { // TODO: Write this method

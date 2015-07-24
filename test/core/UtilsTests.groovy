@@ -1,6 +1,5 @@
 package core
 
-import core.card.ZoneType
 import core.cardbase.minions.ChillwindYeti
 
 import static core.card.ZoneType.DECK
@@ -18,7 +17,7 @@ public class UtilsTests extends GroovyTestCase {
     void testBasicMinionsAttacking() {
         Link yeti = new Link(new ChillwindYeti(), game) // 4/5
         player.zones[PLAY].add(yeti, game)
-        Utils.moveEntity(game, ZoneType.PLAY, ZoneType.DECK, yeti)
+        Utils.moveEntity(game, PLAY, DECK, yeti)
         assertTrue("Verify yeti is in deck zone", yeti in game.zones[DECK])
     }
 }

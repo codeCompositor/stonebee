@@ -8,7 +8,7 @@ trait Card extends Entity implements Copyable {
         NEUTRAL(""), MAGE("core.cardbase.heroes.JainaProudmoore"), WARRIOR("core.cardbase.heroes.GarroshHellscream");
 
         /**
-         * Contains name of class witch implements given hero class
+         * Contains NAME of class witch implements given hero class
          */
         final String className;
 

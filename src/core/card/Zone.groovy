@@ -4,11 +4,11 @@ import core.*
 
 class Zone<E extends Entity> extends LinkedList<Link<E>> implements PlayerOwnable, Copyable<Zone> {
     /**
-     * Maximal numbers of cards in zone
+     * Maximal numbers of cards in ZONE
      */
     private int maxSize
     /**
-     * Owner of this zone
+     * Owner of this ZONE
      */
     Link<Player> player
     ZoneType zoneType
@@ -20,9 +20,9 @@ class Zone<E extends Entity> extends LinkedList<Link<E>> implements PlayerOwnabl
     }
 
     /**
-     * Appends the specified element to the end of this zone.
-     * @param o element to be appended to this zone
-     * @return <tt>true</tt> if zone isn't full
+     * Appends the specified element to the end of this ZONE.
+     * @param o element to be appended to this ZONE
+     * @return <tt>true</tt> if ZONE isn't full
      */
     boolean add(Link<E> o, int index = size()) {
         if (maxSize < 0 || size() < maxSize) {

@@ -19,7 +19,7 @@ public class AfterSummonPhase extends Phase {
     @Override
     public void occur(Game game) {
 //        if (!minion.getFrom(game).getPlayer(game).play.contains(minion)) {
-//            System.out.printf("After Summon Phase of %s aborted because he is not in play zone\n", minion.getFrom(game));
+//            System.out.printf("After Summon Phase of %s aborted because he is not in play ZONE\n", minion.getFrom(game));
 //            return;
 //        }
         super.occur(game);

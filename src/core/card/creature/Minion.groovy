@@ -1,16 +1,14 @@
 package core.card.creature
 
 import core.Link
-import core.Player
 import core.buff.Buff
 import core.card.Card
 import core.card.ZoneType
 import core.phase.BattlecryPhase
 
+import static core.Tags.*
+
 class Minion implements Card, Creature {
-    Link link
-    Link<Player> player
-    boolean pendingDestroy
     List<Buff> buffs
     protected BattlecryPhase battlecry
     /**
@@ -20,47 +18,46 @@ class Minion implements Card, Creature {
     Minion() {}
 
     Minion(int attack, int health, int mana, String name) {
-        this['name'] = name
-        this['mana'] = this['nativeMana'] = mana
-        this['attack'] = this['nativeAttack'] = attack
-        this['health'] = this['maxHealth'] = this['nativeHealth'] = health
-        this['pendingDestroy'] = false;
-        this['canBeTargeted'] = true;
+        this[NAME] = name
+        this[MANA] = this[NATIVE_MANA] = mana
+        this[ATTACK] = this[NATIVE_ATTACK] = attack
+        this[HEALTH] = this[MAX_HEALTH] = this[NATIVE_HEALTH] = health
+        this[PENDING_DESTROY] = false
         ZoneType.values().each { zoneTriggers[it] = new LinkedList() }
         buffs = new ArrayList<Buff>()
     }
 
     BattlecryPhase getBattlecry() {
-        return battlecry;
+        return battlecry
     }
 
     void setBattlecry(BattlecryPhase battlecry) {
-        if (battlecry != null) battlecry.minion = link;
-        this.battlecry = battlecry;
+        if (battlecry != null) battlecry.minion = link
+        this.battlecry = battlecry
     }
 
     Minion copy() {
-        def m = new Minion();
+        def m = new Minion()
         m.link = link.copy()
         m.player = player.copy()
         m.tags.putAll(tags)
         m.buffs = buffs*.copy()
         zoneTriggers.each { m.zoneTriggers.put(it.key, it.value*.copy()) }
         m.battlecry = battlecry == null ? null : battlecry.copy()
-        return m
+        m
     }
 
     String toString() {
-        "Minion{'${this['name']}',${this['attack']}/${this['health']}}"
+        "Minion{'${this[NAME]}',${this[ATTACK]}/${this[HEALTH]}}"
     }
 
     boolean hasBattlecry() {
-        return battlecry != null;
+        battlecry != null
     }
 
     void setLink(Link link) {
-        this.link = link;
+        core_Entity__link = link
         if (battlecry != null)
-            battlecry.minion = link;
+            battlecry.minion = link
     }
 }

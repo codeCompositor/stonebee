@@ -4,6 +4,7 @@ import core.card.creature.Minion
 import core.cardbase.minions.BloodfenRaptor
 import core.cardbase.minions.ChillwindYeti
 
+import static Tags.HEALTH
 import static core.card.ZoneType.GRAVEYARD
 import static core.card.ZoneType.PLAY
 
@@ -27,14 +28,14 @@ class CombatTests extends GroovyTestCase {
         // 4/5 vs 4/5 -> 4/1 and 4/1
         game.combat(yeti1, yeti2)
         game.run()
-        assertEquals("Verify Yeti_1 is at 1 health", 1, yeti1['health'])
-        assertEquals("Verify Yeti_2 is at 1 health", 1, yeti2['health'])
+        assertEquals("Verify Yeti_1 is at 1 health", 1, yeti1[HEALTH])
+        assertEquals("Verify Yeti_2 is at 1 health", 1, yeti2[HEALTH])
 
         // 3/2 vs 4/1 -> 3/-2 and 4/-2
         game.combat(raptor, yeti2)
         game.run()
-        assertEquals("Verify Yeti_2 is at -2 health", -2, yeti2['health'])
-        assertEquals("Verify Raptor is at -2 health", -2, raptor['health'])
+        assertEquals("Verify Yeti_2 is at -2 health", -2, yeti2[HEALTH])
+        assertEquals("Verify Raptor is at -2 health", -2, raptor[HEALTH])
         assertTrue("Verify Yeti_1 is in play zone", new Link(yeti1, game) in game.zones[PLAY])
         assertTrue("Verify Yeti_2 is in graveyard zone", new Link(yeti2, game) in game.zones[GRAVEYARD])
     }

@@ -13,7 +13,7 @@ import static core.card.ZoneType.*
  * This is first phase of playing card.
  * The card is removed from your hand and enters the board as a minion,
  * taking up physical space and becoming interactable.
- * In this phase card moves from hand to play zone and player's amount of mana decremented by mana cost of card
+ * In this phase card moves from hand to play ZONE and player's amount of mana decremented by mana cost of card
  */
 public class PlayingPhase extends Phase {
     final Link<Card> link;

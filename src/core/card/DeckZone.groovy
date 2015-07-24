@@ -1,23 +1,23 @@
-package core.card;
+package core.card
 
-import core.Link;
-import core.Player;
+import core.Link
+import core.Player
 
-public class DeckZone extends Zone<Card> {
-    private int fatigueDamage;
+class DeckZone extends Zone<Card> {
+    private int fatigueDamage
 
     /**
-     * Maximal number of cards in deck zone
+     * Maximal number of cards in deck ZONE
      */
-    private final static int MAX_SIZE = 60;
+    private final static int MAX_SIZE = 60
 
-    public DeckZone() {
-        this(null);
+    DeckZone() {
+        this(null)
     }
 
-    public DeckZone(Link<Player> player) {
-        super(MAX_SIZE, player, ZoneType.DECK);
-        fatigueDamage = 0;
+    DeckZone(Link<Player> player) {
+        super(MAX_SIZE, player, ZoneType.DECK)
+        fatigueDamage = 0
     }
 
 //    public Card drawCard() { // TODO
@@ -38,10 +38,9 @@ public class DeckZone extends Zone<Card> {
 //        return cards;
 //    }
 
-    @Override
-    public DeckZone copy() {
-        DeckZone d = (DeckZone) super.copy();
-        d.fatigueDamage = fatigueDamage;
-        return d;
+    DeckZone copy() {
+        DeckZone d = (DeckZone) super.copy()
+        d.fatigueDamage = fatigueDamage
+        d
     }
 }

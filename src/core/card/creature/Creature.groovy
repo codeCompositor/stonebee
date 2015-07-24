@@ -7,23 +7,25 @@ import core.Link
 import core.buff.Buff
 import core.phase.DamagePhase
 
-trait Creature extends Entity implements Copyable {
-    abstract List<Buff> getBuffs();
+import static core.Tags.*
 
-    abstract void setBuffs(List<Buff> buffs);
+trait Creature extends Entity implements Copyable {
+    abstract List<Buff> getBuffs()
+
+    abstract void setBuffs(List<Buff> buffs)
 
     boolean isDead() {
-        return mortallyWounded || this['pendingDestroy'];
+        mortallyWounded || tags[PENDING_DESTROY]
     }
 
-    boolean isMortallyWounded() { this['health'] <= 0 }
+    boolean isMortallyWounded() { tags[HEALTH] <= 0 }
 
     /**
      * Whenever creature attacks this minion it deals damage to him
      * @param attacker a creature that attacks this minion
      */
     void defend(Link<? extends Creature> attacker, Game game) {
-        game.addPhase(new DamagePhase(this['attack'], attacker, link))
+        game.addPhase(new DamagePhase(tags[ATTACK], attacker, link))
     }
 
     /**
@@ -31,25 +33,28 @@ trait Creature extends Entity implements Copyable {
      * @param defender a creature that is attacked by this minion
      */
     void attack(Link<? extends Creature> defender, Game game) {
-        game.addPhase(new DamagePhase(this['attack'], defender, link))
+        game.addPhase(new DamagePhase(tags[ATTACK], defender, link))
     }
 
-    void takeDamage(int damage) { this['health'] -= damage }
+    void takeDamage(int damage) { this[HEALTH] -= damage }
 
     void silence() {
         buffs.clear()
     }
 
     void updateStats() {
-        def oldHealth = this['maxHealth']
-        this['maxHealth'] = this['nativeHealth']
-        this['attack'] = this['nativeAttack']
-        this['mana'] = this['nativeMana']
+        def oldHealth = tags[MAX_HEALTH]
+
+        tags[MAX_HEALTH] = tags[NATIVE_HEALTH]
+        tags[ATTACK] = tags[NATIVE_ATTACK]
+        tags[MANA] = tags[NATIVE_MANA]
+
         buffs.each { it.apply(this) }
-        if (this['maxHealth'] > oldHealth)
-            this['health'] += this['maxHealth'] - oldHealth
-        else if (this['maxHealth'] < this['health'])
-            this['health'] = this['maxHealth']
+
+        if (tags[MAX_HEALTH] > oldHealth)
+            tags[HEALTH] += tags[MAX_HEALTH] - oldHealth
+        else if (tags[MAX_HEALTH] < tags[HEALTH])
+            tags[HEALTH] = tags[MAX_HEALTH]
     }
 
     static enum Race {

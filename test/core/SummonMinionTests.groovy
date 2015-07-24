@@ -5,6 +5,7 @@ import core.card.creature.Minion
 import core.cardbase.minions.*
 import core.phase.TargetableBattlecryPhase
 
+import static core.Tags.*
 import static core.card.ZoneType.HAND
 import static core.card.ZoneType.PLAY
 
@@ -38,14 +39,14 @@ class SummonMinionTests extends GroovyTestCase {
 
     void testEarlyOnSummonTrigger() {
         def murloc = new Minion(1, 1, 0, "Murloc"), tidecaller = new MurlocTidecaller()
-        murloc['race'] = Creature.Race.MURLOC
+        murloc[RACE] = Creature.Race.MURLOC
         player.zones[HAND].add(new Link<>(tidecaller, game), game)
         player.zones[HAND].add(new Link<>(murloc, game), game)
         game.playMinion(tidecaller)
         game.run()
         game.playMinion(murloc)
         game.run()
-        assertEquals("Verify Tidecaller has 2 attack", 2, tidecaller['attack'])
+        assertEquals("Verify Tidecaller has 2 attack", 2, tidecaller[ATTACK])
     }
 
     void testElvenArcher() {
@@ -57,7 +58,7 @@ class SummonMinionTests extends GroovyTestCase {
         assertTrue("Verify Archer can target Yeti", ((TargetableBattlecryPhase) archer.getFrom(game).battlecry).getValidTargets(game).contains(yetiLink))
         game.playMinion(archer)
         game.run()
-        assertEquals("Verify Yeti has 4 health", 4, yetiLink.getFrom(game)['health'])
+        assertEquals("Verify Yeti has 4 health", 4, yetiLink.getFrom(game)[HEALTH])
     }
 
     void testShatteredSunCleric() {
@@ -69,14 +70,14 @@ class SummonMinionTests extends GroovyTestCase {
         assertTrue("Verify Sun Cleric can target Yeti", yetiLink in cleric.getFrom(game).battlecry.getValidTargets(game))
         game.playMinion(cleric)
         game.run()
-        assertEquals("Verify Yeti has 5 attack", 5, yetiLink.getFrom(game)['attack'])
-        assertEquals("Verify Yeti has 6 health", 6, yetiLink.getFrom(game)['health'])
+        assertEquals("Verify Yeti has 5 attack", 5, yetiLink.getFrom(game)[ATTACK])
+        assertEquals("Verify Yeti has 6 health", 6, yetiLink.getFrom(game)[HEALTH])
         yetiLink.getFrom(game).with {
             buffs.clear()
             updateStats()
         }
-        assertEquals("Verify Yeti has 4 attack", 4, yetiLink.getFrom(game)['attack'])
-        assertEquals("Verify Yeti has 5 health", 5, yetiLink.getFrom(game)['health'])
+        assertEquals("Verify Yeti has 4 attack", 4, yetiLink.getFrom(game)[ATTACK])
+        assertEquals("Verify Yeti has 5 health", 5, yetiLink.getFrom(game)[HEALTH])
     }
 
     void testAbusiveSergeant() {
@@ -91,10 +92,10 @@ class SummonMinionTests extends GroovyTestCase {
 
         game.playMinion(sergeantLink)
         game.run()
-        assertEquals("Verify Yeti has 6 attack", 6, yetiLink.getFrom(game)['attack'])
+        assertEquals("Verify Yeti has 6 attack", 6, yetiLink.getFrom(game)[ATTACK])
 
         game.endTurn()
         game.run()
-        assertEquals("Verify Yeti has 4 attack", 4, yetiLink.getFrom(game)['attack'])
+        assertEquals("Verify Yeti has 4 attack", 4, yetiLink.getFrom(game)[ATTACK])
     }
 }

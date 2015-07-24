@@ -5,21 +5,22 @@ import core.Player
 import core.buff.Buff
 import core.card.Weapon
 
+import static core.Tags.*
+
 class Hero implements Creature {
     Weapon weapon
     Link link
     Link<Player> player
     List<Buff> buffs
 
-    Hero(){}
+    Hero() {}
 
     Hero(int attack, int health, int armor, String name) {
-        this['armor'] = armor
-        this['name'] = name
-        this['attack'] = this['nativeAttack'] = attack
-        this['health'] = this['maxHealth'] = this['nativeHealth'] = health
-        this['pendingDestroy'] = false;
-        this['canBeTargeted'] = true;
+        this[ARMOR] = armor
+        this[NAME] = name
+        this[ATTACK] = this[NATIVE_ATTACK] = attack
+        this[HEALTH] = this[MAX_HEALTH] = this[NATIVE_HEALTH] = health
+        this[PENDING_DESTROY] = false
     }
 
     Creature copy() {
@@ -33,7 +34,7 @@ class Hero implements Creature {
     }
 
     String toString() {
-        "Hero{'${this['name']}',${this['attack']}/${this['health']}}"
+        "Hero{'${this[NAME]}',${this[ATTACK]}/${this[HEALTH]}}"
     }
 
 }
