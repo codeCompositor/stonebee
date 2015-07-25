@@ -19,7 +19,7 @@ class BattlecryPhase extends Phase {
 
     void occur(Game game) {
         super.occur(game)
-        if (!minion.getFrom(game).getPlayer(game).zones[PLAY].contains(minion)) {
+        if (!minion[game].player[game].zones[PLAY].contains(minion)) {
             System.out.printf("Battlecry Phase of %s aborted because he is not in play zone\n", minion)
         }
     }

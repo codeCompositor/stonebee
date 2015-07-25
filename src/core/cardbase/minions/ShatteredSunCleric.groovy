@@ -18,11 +18,11 @@ class ShatteredSunCleric extends Minion {
         void occur(Game game) {
             super.occur(game);
             def buff = new AttackBuff(1) + new HealthBuff(1)
-            target.getFrom(game).buffs.add(buff)
+            target[game].buffs.add(buff)
         }
 
         List<Link<Creature>> getValidTargets(Game game) {
-            super.getValidTargets(game).findAll({ it.getFrom(game) instanceof Minion && it != target })
+            super.getValidTargets(game).findAll({ it[game] instanceof Minion && it != target })
         }
     }
 }

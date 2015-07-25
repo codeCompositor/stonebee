@@ -24,7 +24,7 @@ class OnPlayPhase extends Phase {
 
     void occur(Game game) {
         if (!game.zones[PLAY].contains(card)) {
-            System.out.printf("On Play Phase of %s aborted because he is not in play zone\n", card.getFrom(game))
+            System.out.printf("On Play Phase of %s aborted because he is not in play zone\n", card[game])
             pendingResolution = true
             return
         }

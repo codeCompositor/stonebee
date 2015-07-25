@@ -2,14 +2,16 @@ package core
 
 
 enum Side {
-    FRIENDLY, ENEMY
+    FRIENDLY, ENEMY, ALL_SIDES
 
-    Player getPlayer(Game game, Player friendlyPlayer) {
+    def getHolder(Game game, Player friendlyPlayer) {
         switch (this) {
             case FRIENDLY:
                 return friendlyPlayer
             case ENEMY:
                 return game.oppositePlayer(friendlyPlayer)
+            case ALL_SIDES:
+                return game
         }
         null
     }

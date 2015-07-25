@@ -15,8 +15,8 @@ class CombatPhase extends Phase {
 
     void occur(Game game) {
         super.occur(game)
-        defender.getFrom(game).defend(attacker, game)
-        attacker.getFrom(game).attack(defender, game)
+        defender[game].defend(attacker, game)
+        attacker[game].attack(defender, game)
     }
 
     String toString() {

@@ -25,7 +25,7 @@ class Equality extends Spell {
             super.occur(game)
             def buff = new HealthBuff({ x -> 1 })
             for (link in game.zones[PLAY]) {
-                def c = link.getFrom(game)
+                def c = link[game]
                 if (c instanceof Minion)
                     c.buffs.add(buff)
             }

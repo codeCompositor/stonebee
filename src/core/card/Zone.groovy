@@ -34,7 +34,7 @@ class Zone<E extends Entity> extends LinkedList<Link<E>> implements PlayerOwnabl
 
     boolean add(Link<E> o, Game game, int index = size()) {
         if (add(o, index)) {
-            def e = o.getFrom(game)
+            def e = o[game]
             if (e instanceof Entity) {
                 e.player = player
                 e.zoneTriggers[zoneType].each {
@@ -59,7 +59,7 @@ class Zone<E extends Entity> extends LinkedList<Link<E>> implements PlayerOwnabl
 
     boolean remove(Link<E> o, Game game) {
         if (remove(o)) {
-            def e = o.getFrom(game)
+            def e = o[game]
             if (e instanceof Entity) {
                 game.triggers.removeAll(e.triggers)
                 e.triggers.clear()

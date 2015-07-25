@@ -7,7 +7,6 @@ import core.card.creature.Creature
 import core.card.creature.Minion
 import core.cardbase.heroes.JainaProudmoore
 import core.phase.*
-import core.selector.Selector
 
 import static core.card.ZoneType.PLAY
 
@@ -78,7 +77,7 @@ public class Game implements Copyable<Game> {
     void playSpell(Link<Spell> link) {
         addPhase(new DeathPhase())
         addPhase(new AfterSpellPhase(link, true));
-        addPhase(link.getFrom(this).text);
+        addPhase(link[this].text);
         addPhase(new OnPlayPhase(link, true));
         addPhase(new PlayingPhase(link, true));
     }
@@ -91,8 +90,8 @@ public class Game implements Copyable<Game> {
     void playMinion(Link<Minion> link) {
         addPhase(new AfterSummonPhase(link, true));
         addPhase(new SecretActivationPhase(link, true));
-        if (link.getFrom(this).hasBattlecry()) {
-            addPhase(link.getFrom(this).getBattlecry());
+        if (link[this].hasBattlecry()) {
+            addPhase(link[this].getBattlecry());
         }
         addPhase(new LateOnSummonPhase(link, true));
         addPhase(new OnPlayPhase(link, true));
@@ -137,7 +136,7 @@ public class Game implements Copyable<Game> {
 
     void updateStats() {
         //TODO: Add auras
-        zones[PLAY].each { it.getFrom(this).updateStats() }
+        zones[PLAY].each { it[this].updateStats() }
     }
 
     Player oppositePlayer(Player player) {
@@ -166,9 +165,9 @@ public class Game implements Copyable<Game> {
         currentTarget = -1
     }
 
-    void damage(int damage, Selector selector, Link<Entity> link) {
+    void dealDamage(int damage, Selector selector, Link<Entity> link) {
         def phase = new Phase()
-        selector.eval(this, link.getFrom(this).player).each {
+        selector.eval(this, link[this].player).each {
             phase += new DamagePhase(damage, it, link)
         }
         addPhase(phase)

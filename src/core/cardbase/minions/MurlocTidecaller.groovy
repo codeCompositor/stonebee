@@ -21,13 +21,13 @@ public class MurlocTidecaller extends Minion {
         MTTrigger() {
             super()
             trigger = { Phase phase, Game game ->
-                phase instanceof EarlyOnSummonPhase && phase.minion.getFrom(game)[RACE] == Creature.Race.MURLOC
+                phase instanceof EarlyOnSummonPhase && phase.minion[game][RACE] == Creature.Race.MURLOC
             }
         }
 
         void occur(Game game) {
             super.occur(game)
-            entity.getFrom(game).buffs.add(new AttackBuff(1))
+            entity[game].buffs.add(new AttackBuff(1))
         }
     }
 }

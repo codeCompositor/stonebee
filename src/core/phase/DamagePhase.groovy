@@ -19,8 +19,8 @@ public class DamagePhase extends Phase {
 
     void occur(Game game) {
         super.occur(game)
-        if (target.getFrom(game) instanceof Creature) {
-            target.getFrom(game).takeDamage(damage)
+        if (target[game] instanceof Creature) {
+            target[game].takeDamage(damage)
             return
         }
         throw new Exception("Only Creature can take damage")

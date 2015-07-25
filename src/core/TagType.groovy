@@ -1,7 +1,5 @@
 package core
 
-import org.testng.internal.collections.Pair
-
 enum TagType {
     ZONE, SIDE, TYPE,
     NAME,
@@ -12,6 +10,4 @@ enum TagType {
     ARMOR,
     RACE,
     DURABILITY
-
-    Pair<TagType, Object> minus(object) { new Pair(this, object) }
 }

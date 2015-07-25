@@ -25,14 +25,14 @@ public class PlayingPhase extends Phase {
     }
 
     void occur(Game game) {
-        def card = link.getFrom(game)
+        def card = link[game]
         if (!(link in game.zones[HAND])) {
             System.out.printf("Playing Phase of %s aborted because it is not in hand zone\n", card)
             pendingResolution = true
             return
         }
         super.occur(game)
-        card.getPlayer(game).mana -= card[MANA]
+        card.player[game].mana -= card[MANA]
         if (card instanceof Minion) {
             Utils.moveEntity(game, HAND, PLAY, link)
             //game.triggers.addAll(((Minion) card).getPlayTriggers());//TODO: Change triggers (add different types of triggers)

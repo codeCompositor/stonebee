@@ -28,7 +28,7 @@ public class Player implements Copyable<Player>, Linkable<Player> {
     }
 
     Hero getHero(Game game) {
-        return (Hero) hero.getFrom(game)
+        hero[game]
     }
 
     void setLink(Link<Player> link) {

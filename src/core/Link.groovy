@@ -45,6 +45,10 @@ public final class Link<E extends Copyable> implements Copyable { //TODO: Think 
         list.get(index)
     }
 
+    E getAt(holder) {
+        getFrom(holder)
+    }
+
     Link<E> copy() {
         new Link(index)
     }

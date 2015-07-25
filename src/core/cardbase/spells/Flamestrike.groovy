@@ -2,14 +2,12 @@ package core.cardbase.spells
 
 import core.Game
 import core.Link
+import core.Selector
 import core.card.Spell
 import core.phase.SpellTextPhase
-import core.selector.Selector
 
 import static core.EntityType.MINION
 import static core.Side.ENEMY
-import static core.TagType.*
-import static core.card.ZoneType.PLAY
 
 class Flamestrike extends Spell {
     Selector selector
@@ -17,7 +15,7 @@ class Flamestrike extends Spell {
     Flamestrike() {
         super(7, "Flamestrike")
         text = new FlamestrikeTextPhase()
-        selector = new Selector(TYPE - MINION, SIDE - ENEMY, ZONE - PLAY)
+        selector = new Selector(ENEMY, MINION)
     }
 
     void setLink(Link link) {
@@ -27,7 +25,7 @@ class Flamestrike extends Spell {
 
     private class FlamestrikeTextPhase extends SpellTextPhase {
         void occur(Game game) {
-            game.damage(4, selector, spell)
+            game.dealDamage(4, selector, spell)
             super.occur(game)
         }
     }

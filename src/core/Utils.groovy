@@ -13,7 +13,7 @@ final class Utils {
      * @return <tt>true</tt> if initial ZONE contains specified card
      */
     static moveEntity(Game game, ZoneType initial, ZoneType resulting, Link<Entity> entity) {
-        Player player = entity.getFrom(game).getPlayer(game)
+        Player player = entity[game].player[game]
         player.zones[initial].remove(entity, game)
         player.zones[resulting].add(entity, game)
     }

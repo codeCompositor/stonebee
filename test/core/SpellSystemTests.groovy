@@ -41,8 +41,8 @@ public class SpellSystemTests extends GroovyTestCase {
         def gameCopy = game.copy()
         def playerCopy = gameCopy.getPlayer()
         def opponentCopy = gameCopy.getOpponent()
-        def yetiCopy = yetiLink.getFrom(gameCopy)
-        def raptorCopy = raptorLink.getFrom(gameCopy)
+        def yetiCopy = yetiLink[gameCopy]
+        def raptorCopy = raptorLink[gameCopy]
         def flamestrike2 = new Flamestrike()
         def flamestrike2Link = new Link(flamestrike2, gameCopy)
         opponentCopy.zones[HAND].add(flamestrike2Link, gameCopy)

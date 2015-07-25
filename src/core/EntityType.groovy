@@ -2,5 +2,5 @@ package core
 
 
 enum EntityType {
-    SPELL, MINION, HERO
+    SPELL, MINION, HERO, CREATURE
 }

@@ -27,7 +27,7 @@ class Phase implements Copyable {
 
     void checkTriggers(Game game) {
         def queue = new PriorityQueue<Phase>()
-        game.triggers.each { if (it.getFrom(game).trigger(this, game)) queue.add(it.getFrom(game)) }
+        game.triggers.each { if (it[game].trigger(this, game)) queue.add(it[game]) }
         queue.each { game.addPhase(it) }
     }
 

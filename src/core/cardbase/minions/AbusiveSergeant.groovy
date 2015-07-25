@@ -26,12 +26,12 @@ class AbusiveSergeant extends Minion {
             super.occur(game);
 
             Buff buff = new AttackBuff(2);
-            Link<Buff> link = new Link<>(buff, getTarget().getFrom(game).getBuffs());
+            Link<Buff> link = new Link<>(buff, getTarget()[game].getBuffs());
             game.triggers.add(new Link(new ASTrigger(getTarget(), link), game));
         }
 
         List<Link<Creature>> getValidTargets(Game game) {
-            super.getValidTargets(game).findAll({ it.getFrom(game) instanceof Minion && it != target })
+            super.getValidTargets(game).findAll({ it[game] instanceof Minion && it != target })
         }
 
     }
@@ -51,8 +51,8 @@ class AbusiveSergeant extends Minion {
         void occur(Game game) {
             super.occur(game);
 
-            Creature c = target.getFrom(game);
-            c.getBuffs().remove(buff.getFrom(c.buffs));
+            Creature c = target[game];
+            c.getBuffs().remove(buff[c.buffs]);
             game.triggers.remove(new Link(this, game));
         }
     }
