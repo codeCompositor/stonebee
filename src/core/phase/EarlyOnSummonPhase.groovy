@@ -13,8 +13,7 @@ import static core.card.ZoneType.PLAY
 public class EarlyOnSummonPhase extends Phase {
     final Link<Minion> minion
 
-    EarlyOnSummonPhase(Link<Minion> minion, boolean outermost) {
-        super(outermost)
+    EarlyOnSummonPhase(Link<Minion> minion) {
         this.minion = minion
     }
 

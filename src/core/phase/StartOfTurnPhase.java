@@ -3,9 +3,6 @@ package core.phase;
 import core.Game;
 
 public class StartOfTurnPhase extends Phase {
-    public StartOfTurnPhase(boolean game) {
-        super(game);
-    }
 
     @Override
     public void occur(Game game) {

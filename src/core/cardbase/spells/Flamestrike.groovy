@@ -1,32 +1,12 @@
 package core.cardbase.spells
 
-import core.Game
-import core.Link
-import core.Selector
-import core.card.Spell
-import core.phase.SpellTextPhase
+import core.card.AOESpell
+import core.phase.DamagePhase
 
-import static core.EntityType.MINION
-import static core.Side.ENEMY
+import static core.Selector.ENEMY_MINIONS
 
-class Flamestrike extends Spell {
-    Selector selector
-
+class Flamestrike extends AOESpell {
     Flamestrike() {
-        super(7, "Flamestrike")
-        text = new FlamestrikeTextPhase()
-        selector = new Selector(ENEMY, MINION)
-    }
-
-    void setLink(Link link) {
-        super.setLink(link);
-        text.setSpell(link);
-    }
-
-    private class FlamestrikeTextPhase extends SpellTextPhase {
-        void occur(Game game) {
-            game.dealDamage(4, selector, spell)
-            super.occur(game)
-        }
+        super(7, "Flamestrike", new DamagePhase(4), ENEMY_MINIONS)
     }
 }

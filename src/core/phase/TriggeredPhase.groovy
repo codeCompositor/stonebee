@@ -7,12 +7,7 @@ class TriggeredPhase extends Phase implements Comparable<TriggeredPhase> {
     int priority
     Closure<Boolean> trigger
 
-    TriggeredPhase() {
-        this(0)
-    }
-
-    TriggeredPhase(int priority) {
-        super(false)
+    TriggeredPhase(int priority = 0) {
         this.priority = priority
     }
 

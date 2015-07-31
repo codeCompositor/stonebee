@@ -13,7 +13,6 @@ class BattlecryPhase extends Phase {
     Link<Minion> minion
 
     BattlecryPhase(Link<Minion> minion) {
-        super(true)
         this.minion = minion
     }
 

@@ -56,8 +56,11 @@ public class Game implements Copyable<Game> {
         opponent.initHero(new JainaProudmoore(), this)
     }
 
-    void addPhase(Phase phase) {
-        phaseStack.push(phase)
+    void addPhase(Phase phase, boolean newPhase = true) {
+        if (newPhase)
+            phaseStack.push(phase)
+        else
+            phaseStack.push(phaseStack.pop() + phase)
     }
 
     void run() {
@@ -76,10 +79,10 @@ public class Game implements Copyable<Game> {
 
     void playSpell(Link<Spell> link) {
         addPhase(new DeathPhase())
-        addPhase(new AfterSpellPhase(link, true));
+        addPhase(new AfterSpellPhase(link));
         addPhase(link[this].text);
-        addPhase(new OnPlayPhase(link, true));
-        addPhase(new PlayingPhase(link, true));
+        addPhase(new OnPlayPhase(link));
+        addPhase(new PlayingPhase(link));
     }
 
     /**
@@ -88,15 +91,15 @@ public class Game implements Copyable<Game> {
      * @param link link on minion to play
      */
     void playMinion(Link<Minion> link) {
-        addPhase(new AfterSummonPhase(link, true));
-        addPhase(new SecretActivationPhase(link, true));
+        addPhase(new AfterSummonPhase(link));
+        addPhase(new SecretActivationPhase(link));
         if (link[this].hasBattlecry()) {
             addPhase(link[this].getBattlecry());
         }
-        addPhase(new LateOnSummonPhase(link, true));
-        addPhase(new OnPlayPhase(link, true));
-        addPhase(new EarlyOnSummonPhase(link, true));
-        addPhase(new PlayingPhase(link, true));
+        addPhase(new LateOnSummonPhase(link));
+        addPhase(new OnPlayPhase(link));
+        addPhase(new EarlyOnSummonPhase(link));
+        addPhase(new PlayingPhase(link));
     }
 
     void playMinion(Minion minion) {
@@ -130,7 +133,7 @@ public class Game implements Copyable<Game> {
     }
 
     void endTurn() {
-        phaseStack.addAll([new CardDrawPhase(true), new StartOfTurnPhase(true), new EndOfTurnPhase(true)])
+        phaseStack.addAll([new CardDrawPhase(), new StartOfTurnPhase(), new EndOfTurnPhase()])
         //TODO: Replace with normal commands
     }
 
@@ -167,11 +170,18 @@ public class Game implements Copyable<Game> {
 
     void dealDamage(int damage, Selector selector, Link<Entity> link) {
         def phase = new Phase()
-        selector.eval(this, link[this].player).each {
+        selector.eval(this, link).each {
             phase += new DamagePhase(damage, it, link)
         }
         addPhase(phase)
     }
+
+//    void dealDamage(int damage, Selector selector, Link<Entity> link) {
+//        addPhase(new Phase())
+//        selector.eval(this, link).each {
+//            addPhase(new DamagePhase(damage, it, link), false)
+//        }
+//    }
 
     enum GameResult {
         IN_PROGRESS, WIN, LOSS, DRAW

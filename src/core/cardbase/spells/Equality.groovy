@@ -23,7 +23,7 @@ class Equality extends Spell {
     private class EqualityTextPhase extends SpellTextPhase {
         void occur(Game game) {
             super.occur(game)
-            def buff = new HealthBuff({ x -> 1 })
+            def buff = new HealthBuff({ 1 })
             for (link in game.zones[PLAY]) {
                 def c = link[game]
                 if (c instanceof Minion)

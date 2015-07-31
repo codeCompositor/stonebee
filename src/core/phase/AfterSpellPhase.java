@@ -9,8 +9,7 @@ import core.Link;
 public class AfterSpellPhase extends Phase {
     private Link spell;
 
-    public AfterSpellPhase(Link spell, boolean outermost) {
-        super(outermost);
+    public AfterSpellPhase(Link spell) {
         this.spell = spell;
     }
 

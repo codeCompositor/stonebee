@@ -12,7 +12,6 @@ public class SpellTextPhase extends Phase {
     }
 
     public SpellTextPhase(Link<Spell> spell) {
-        super(true);
         this.spell = spell;
     }
 

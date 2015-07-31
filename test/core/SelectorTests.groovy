@@ -22,6 +22,6 @@ public class SelectorTests extends GroovyTestCase {
         player.zones[PLAY].add(yeti, game)
         player.zones[PLAY].add(raptor, game)
         def selector = ~new Selector([ATTACK, L, 4])// & new Selector(ENEMY, PLAY, MINION)
-        assert [yeti] as Set == selector.eval(game, player)
+        assert [yeti] as Set == selector.eval(game, yeti)
     }
 }

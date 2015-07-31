@@ -11,7 +11,6 @@ import static core.card.ZoneType.PLAY
  */
 class DeathPhase extends Phase {
     DeathPhase() {
-        super(true)
     }
 
     void occur(Game game) {//TODO: Add deathrattle

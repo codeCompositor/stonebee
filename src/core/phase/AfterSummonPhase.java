@@ -11,8 +11,7 @@ import core.card.creature.Minion;
 public class AfterSummonPhase extends Phase {
     private Link<? extends Minion> minion;
 
-    public AfterSummonPhase(Link<? extends Minion> minion, boolean outermost) {
-        super(outermost);
+    public AfterSummonPhase(Link<? extends Minion> minion) {
         this.minion = minion;
     }
 

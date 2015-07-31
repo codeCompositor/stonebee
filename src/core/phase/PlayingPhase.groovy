@@ -19,8 +19,7 @@ import static core.card.ZoneType.*
 public class PlayingPhase extends Phase {
     final Link<Card> link;
 
-    PlayingPhase(Link<Card> card, boolean outermost) {
-        super(outermost);
+    PlayingPhase(Link<Card> card) {
         link = card;
     }
 

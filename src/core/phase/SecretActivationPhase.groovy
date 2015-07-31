@@ -9,8 +9,7 @@ import static core.card.ZoneType.PLAY
 class SecretActivationPhase extends Phase {
     final Link<? extends Minion> minion
 
-    public SecretActivationPhase(Link<? extends Minion> minion, boolean outermost) {
-        super(outermost)
+    public SecretActivationPhase(Link<? extends Minion> minion) {
         this.minion = minion
     }
 

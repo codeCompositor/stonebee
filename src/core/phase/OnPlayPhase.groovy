@@ -17,8 +17,7 @@ import static core.card.ZoneType.PLAY
 class OnPlayPhase extends Phase {
     final Link<? extends Card> card
 
-    OnPlayPhase(Link<? extends Card> card, boolean outermost) {
-        super(outermost);
+    OnPlayPhase(Link<? extends Card> card) {
         this.card = card;
     }
 

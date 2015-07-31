@@ -4,16 +4,10 @@ import core.Copyable
 import core.Game
 
 class Phase implements Copyable {
-    final boolean outermost
     boolean pendingResolution
 
     Phase() {
-        this(false)
-    }
-
-    Phase(boolean outermost) {
         this.pendingResolution = false
-        this.outermost = outermost
     }
 
     /**
@@ -32,9 +26,9 @@ class Phase implements Copyable {
     }
 
     Phase copy() {
-        Phase clone = new Phase(outermost)
-        clone.pendingResolution = pendingResolution
-        clone
+        Phase copy = new Phase()
+        copy.pendingResolution = pendingResolution
+        copy
     }
 
     Phase plus(Phase phase2) {

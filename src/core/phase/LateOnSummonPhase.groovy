@@ -13,8 +13,7 @@ import static core.card.ZoneType.PLAY
 public class LateOnSummonPhase extends Phase {
     final Link<? extends Minion> minion
 
-    LateOnSummonPhase(Link<? extends Minion> minion, boolean outermost) {
-        super(outermost)
+    LateOnSummonPhase(Link<? extends Minion> minion) {
         this.minion = minion
     }
 

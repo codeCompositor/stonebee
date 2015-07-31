@@ -5,16 +5,17 @@ import core.Game
 import core.Link
 import core.card.creature.Creature
 
-public class DamagePhase extends Phase {
+public class DamagePhase extends TargetablePhase {
     final int damage
-    final Link<Entity> attacker
-    final Link<Entity> target
 
-    DamagePhase(int damage, Link<Entity> target, Link<Entity> attacker) {
-        super(false)
+    DamagePhase(int damage) {
+        this.damage = damage
+    }
+
+    DamagePhase(int damage, Link<Entity> target, Link<Entity> owner) {
         this.target = target
         this.damage = damage
-        this.attacker = attacker
+        this.owner = owner
     }
 
     void occur(Game game) {
@@ -24,6 +25,13 @@ public class DamagePhase extends Phase {
             return
         }
         throw new Exception("Only Creature can take damage")
+    }
+
+    DamagePhase copy() {
+        def copy = new DamagePhase(damage)
+        copy.owner = owner == null ? null : owner.copy()
+        copy.target = target == null ? null : target.copy()
+        copy
     }
 
     String toString() {
