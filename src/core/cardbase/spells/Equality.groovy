@@ -1,34 +1,14 @@
 package core.cardbase.spells
 
-import core.Game
-import core.Link
 import core.buff.HealthBuff
 import core.card.Spell
-import core.card.creature.Minion
-import core.phase.SpellTextPhase
+import core.phase.AOEPhase
+import core.phase.BuffPhase
 
-import static core.card.ZoneType.PLAY
+import static core.Selector.MINIONS
 
 class Equality extends Spell {
     Equality() {
-        super(2, "Equality")
-        text = new EqualityTextPhase()
-    }
-
-    void setLink(Link link) {
-        super.setLink(link)
-        text.setSpell(link)
-    }
-
-    private class EqualityTextPhase extends SpellTextPhase {
-        void occur(Game game) {
-            super.occur(game)
-            def buff = new HealthBuff({ 1 })
-            for (link in game.zones[PLAY]) {
-                def c = link[game]
-                if (c instanceof Minion)
-                    c.buffs.add(buff)
-            }
-        }
+        super(2, "Equality", new AOEPhase(new BuffPhase(new HealthBuff({ 1 })), MINIONS))
     }
 }

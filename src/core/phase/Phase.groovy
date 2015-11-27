@@ -2,9 +2,11 @@ package core.phase
 
 import core.Copyable
 import core.Game
+import core.Link
 
 class Phase implements Copyable {
     boolean pendingResolution
+    Link owner
 
     Phase() {
         this.pendingResolution = false
@@ -38,6 +40,16 @@ class Phase implements Copyable {
                 super.occur(game)
                 phase1.occur(game)
                 phase2.occur(game)
+            }
+        }
+    }
+
+    Phase multiply(int number) {
+        def phase = this
+        new Phase() {
+            void occur(Game game) {
+                super.occur(game)
+                number.times { phase.occur(game) }
             }
         }
     }

@@ -5,7 +5,6 @@ import core.buff.AttackBuff
 import core.card.creature.Creature
 import core.card.creature.Minion
 import core.phase.EarlyOnSummonPhase
-import core.phase.Phase
 import core.phase.TriggeredPhase
 
 import static core.TagType.RACE
@@ -20,14 +19,14 @@ public class MurlocTidecaller extends Minion {
     class MTTrigger extends TriggeredPhase {
         MTTrigger() {
             super()
-            trigger = { Phase phase, Game game ->
+            trigger = { phase, game ->
                 phase instanceof EarlyOnSummonPhase && phase.minion[game][RACE] == Creature.Race.MURLOC
             }
         }
 
         void occur(Game game) {
             super.occur(game)
-            entity[game].buffs.add(new AttackBuff(1))
+            owner[game].buffs.add(new AttackBuff(1))
         }
     }
 }

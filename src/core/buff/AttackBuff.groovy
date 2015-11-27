@@ -13,12 +13,12 @@ class AttackBuff extends Buff {
     }
 
     AttackBuff(int delta) {
-        this.f = { it + delta }
+        this.f = { attack, entity -> attack + delta }
     }
 
     void apply(Entity entity) {
         if (entity instanceof Creature) {
-            entity[ATTACK] = f(entity[ATTACK])
+            entity[ATTACK] = f(entity[ATTACK], entity)
             return
         }
         throw new Exception("Attack Buff can be applied only to Creature")

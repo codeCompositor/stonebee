@@ -1,19 +1,9 @@
 package core.card.creature
 
-import core.Link
-import core.Player
-import core.buff.Buff
-import core.card.Weapon
-
 import static core.EntityType.HERO
 import static core.TagType.*
 
 class Hero implements Creature {
-    Weapon weapon
-    Link link
-    Link<Player> player
-    List<Buff> buffs
-
     Hero() {}
 
     Hero(int attack, int health, int armor, String name) {
@@ -27,7 +17,6 @@ class Hero implements Creature {
 
     Creature copy() {
         def h = new Hero()
-        h.weapon = weapon == null ? null : weapon.copy()
         h.link = link.copy()
         h.player = player.copy()
         h.tags.putAll(tags)

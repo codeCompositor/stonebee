@@ -5,13 +5,13 @@ import core.buff.Buff
 import core.card.Card
 import core.card.ZoneType
 import core.phase.BattlecryPhase
+import core.phase.Phase
 
 import static core.EntityType.MINION
 import static core.TagType.*
 
 class Minion implements Card, Creature {
-    List<Buff> buffs
-    protected BattlecryPhase battlecry
+    protected Phase battlecry
     /**
      * Triggers which are added to main trigger list whenever minion is played
      */
@@ -29,7 +29,7 @@ class Minion implements Card, Creature {
         buffs = new ArrayList<Buff>()
     }
 
-    BattlecryPhase getBattlecry() {
+    Phase getBattlecry() {
         return battlecry
     }
 
@@ -57,9 +57,24 @@ class Minion implements Card, Creature {
         battlecry != null
     }
 
-    void setLink(Link link) {
+    def setLink(Link link) {
         core_Entity__link = link
         if (battlecry != null)
-            battlecry.minion = link
+            battlecry.setOwner(link)
+    }
+
+    void updateStats() {
+        def oldHealth = tags[MAX_HEALTH]
+
+        tags[MAX_HEALTH] = tags[NATIVE_HEALTH]
+        tags[ATTACK] = tags[NATIVE_ATTACK]
+        tags[MANA] = tags[NATIVE_MANA]
+
+        buffs.each { it.apply(this) }
+
+        if (tags[MAX_HEALTH] > oldHealth)
+            tags[HEALTH] += tags[MAX_HEALTH] - oldHealth
+        else if (tags[MAX_HEALTH] < tags[HEALTH])
+            tags[HEALTH] = tags[MAX_HEALTH]
     }
 }

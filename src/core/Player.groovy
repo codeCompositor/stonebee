@@ -1,6 +1,7 @@
 package core
 
 import core.card.DeckZone
+import core.card.Weapon
 import core.card.Zone
 import core.card.ZoneType
 import core.card.creature.Hero
@@ -10,6 +11,7 @@ import static core.card.ZoneType.*
 public class Player implements Copyable<Player>, Linkable<Player> {
     Map<ZoneType, Zone<Entity>> zones = [:]
     Link<Hero> hero
+    Link<Weapon> weapon
     int mana
     Link<Player> link
 
@@ -40,6 +42,7 @@ public class Player implements Copyable<Player>, Linkable<Player> {
         Player p = new Player()
         zones.each { p.zones.put(it.key, it.value.copy()) }
         p.hero = hero
+        p.weapon = weapon
         p.mana = mana
         return p
     }

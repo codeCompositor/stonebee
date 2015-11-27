@@ -1,5 +1,6 @@
 package core.phase
 
+import core.Game
 import core.Link
 
 class TriggeredPhase extends Phase implements Comparable<TriggeredPhase> {
@@ -11,13 +12,18 @@ class TriggeredPhase extends Phase implements Comparable<TriggeredPhase> {
         this.priority = priority
     }
 
+    void occur(Game game) {
+        super.occur(game)
+
+    }
+
     int compareTo(TriggeredPhase trigger) {
         Integer.compare(priority, trigger.priority)
     }
 
     TriggeredPhase copy() {
-        def clone = (TriggeredPhase) super.copy()
-        clone.priority = priority
-        clone
+        def copy = (TriggeredPhase) super.copy()
+        copy.priority = priority
+        copy
     }
 }

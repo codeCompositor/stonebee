@@ -12,6 +12,7 @@ class ShatteredSunCleric extends Minion {
     ShatteredSunCleric() {
         super(3, 2, 3, "Shattered Sun Cleric")
         battlecry = new SSCBattlecry();
+        //battlecry = new SelectOnePhase(new BuffPhase(new AttackBuff(1) + new HealthBuff(1)), MINIONS)
     }
 
     class SSCBattlecry extends TargetableBattlecryPhase {

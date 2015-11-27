@@ -1,25 +1,28 @@
 package core.card
 
 import core.Link
-import core.phase.SpellTextPhase
+import core.phase.Phase
 
 import static core.EntityType.SPELL
 import static core.TagType.*
 
 class Spell implements Card {
-    SpellTextPhase text
+    Phase text
 
-    Spell(int mana, String name) {
+    Spell(int mana, String name, text) {
         this[TYPE] = SPELL
         this[MANA] = this[NATIVE_MANA] = mana
         this[NAME] = name
         this[PENDING_DESTROY] = false
+        //text.type = SPELL_TEXT//TODO: Add PhaseType
+        this.text = text
     }
 
-    void setLink(Link link) {
+    def setLink(Link link) {
         core_Entity__link = link
+        println this.link
         if (text != null)
-            text.setSpell(link)
+            text.setOwner(link)
     }
 
     Spell copy() { // TODO: Write this method

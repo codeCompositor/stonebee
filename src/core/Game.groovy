@@ -79,10 +79,15 @@ public class Game implements Copyable<Game> {
 
     void playSpell(Link<Spell> link) {
         addPhase(new DeathPhase())
-        addPhase(new AfterSpellPhase(link));
-        addPhase(link[this].text);
-        addPhase(new OnPlayPhase(link));
-        addPhase(new PlayingPhase(link));
+        addPhase(new StatsUpdatePhase())
+        addPhase(new AfterSpellPhase(link))
+        addPhase(new DeathPhase())
+        addPhase(new StatsUpdatePhase())
+        addPhase(link[this].text)
+        addPhase(new DeathPhase())
+        addPhase(new StatsUpdatePhase())
+        addPhase(new OnPlayPhase(link))
+        addPhase(new PlayingPhase(link))
     }
 
     /**
@@ -91,19 +96,26 @@ public class Game implements Copyable<Game> {
      * @param link link on minion to play
      */
     void playMinion(Link<Minion> link) {
-        addPhase(new AfterSummonPhase(link));
-        addPhase(new SecretActivationPhase(link));
+        addPhase(new DeathPhase())
+        addPhase(new StatsUpdatePhase())
+        addPhase(new AfterSummonPhase(link))
+        addPhase(new StatsUpdatePhase())
+        addPhase(new SecretActivationPhase(link))
         if (link[this].hasBattlecry()) {
-            addPhase(link[this].getBattlecry());
+            addPhase(new DeathPhase())
+            addPhase(new StatsUpdatePhase())
+            addPhase(link[this].getBattlecry())
         }
-        addPhase(new LateOnSummonPhase(link));
-        addPhase(new OnPlayPhase(link));
-        addPhase(new EarlyOnSummonPhase(link));
-        addPhase(new PlayingPhase(link));
+        addPhase(new DeathPhase())
+        addPhase(new StatsUpdatePhase())
+        addPhase(new LateOnSummonPhase(link))
+        addPhase(new OnPlayPhase(link))
+        addPhase(new EarlyOnSummonPhase(link))
+        addPhase(new PlayingPhase(link))
     }
 
     void playMinion(Minion minion) {
-        playMinion(new Link<>(minion, this));
+        playMinion(new Link<>(minion, this))
     }
 
     /**
@@ -139,6 +151,7 @@ public class Game implements Copyable<Game> {
 
     void updateStats() {
         //TODO: Add auras
+        zones[PLAY].each { it[this].updateStats() }
         zones[PLAY].each { it[this].updateStats() }
     }
 

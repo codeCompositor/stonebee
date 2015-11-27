@@ -10,9 +10,6 @@ import static core.card.ZoneType.PLAY
  * Process death, activate death-related triggers.
  */
 class DeathPhase extends Phase {
-    DeathPhase() {
-    }
-
     void occur(Game game) {//TODO: Add deathrattle
         super.occur(game)
         def deadCreatures = game.zones[PLAY].findAll { it[game].dead }

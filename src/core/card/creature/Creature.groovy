@@ -4,16 +4,11 @@ import core.Copyable
 import core.Entity
 import core.Game
 import core.Link
-import core.buff.Buff
 import core.phase.DamagePhase
 
 import static core.TagType.*
 
 trait Creature extends Entity implements Copyable {
-    abstract List<Buff> getBuffs()
-
-    abstract void setBuffs(List<Buff> buffs)
-
     boolean isDead() {
         mortallyWounded || tags[PENDING_DESTROY]
     }
@@ -47,7 +42,6 @@ trait Creature extends Entity implements Copyable {
 
         tags[MAX_HEALTH] = tags[NATIVE_HEALTH]
         tags[ATTACK] = tags[NATIVE_ATTACK]
-        tags[MANA] = tags[NATIVE_MANA]
 
         buffs.each { it.apply(this) }
 

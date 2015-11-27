@@ -9,5 +9,6 @@ enum TagType {
     PENDING_DESTROY,
     ARMOR,
     RACE,
+    TAUNT,
     DURABILITY
 }

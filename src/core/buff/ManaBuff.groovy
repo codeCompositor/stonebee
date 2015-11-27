@@ -13,12 +13,12 @@ class ManaBuff extends Buff {
     }
 
     ManaBuff(int delta) {
-        this.f = { it + delta }
+        this.f = { mana, entity -> mana + delta }
     }
 
     void apply(Entity entity) {
         if (entity instanceof Card) {
-            entity[MANA] = f(entity[MANA])
+            entity[MANA] = f(entity[MANA], entity)
             return
         }
         throw new Exception("Mana Buff can be applied only to Card")

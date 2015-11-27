@@ -1,12 +1,13 @@
 package core.cardbase.spells
 
-import core.card.AOESpell
+import core.card.Spell
+import core.phase.AOEPhase
 import core.phase.DamagePhase
 
 import static core.Selector.ENEMY_MINIONS
 
-class Flamestrike extends AOESpell {
+class Flamestrike extends Spell {
     Flamestrike() {
-        super(7, "Flamestrike", new DamagePhase(4), ENEMY_MINIONS)
+        super(7, "Flamestrike", new AOEPhase(new DamagePhase(4), ENEMY_MINIONS))
     }
 }
